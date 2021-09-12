@@ -1,0 +1,7 @@
+apiVersion: "stable.example.com/v1"
+kind: Sample
+metadata:
+  name: mine
+spec:
+  image: hello-world
+  message: "Hello Custom Resource."
