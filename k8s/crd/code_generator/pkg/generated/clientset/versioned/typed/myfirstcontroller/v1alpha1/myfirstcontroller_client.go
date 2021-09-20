@@ -19,9 +19,8 @@ limitations under the License.
 package v1alpha1
 
 import (
-	v1alpha1 "MSHR-Doc/k8s/crd/code_generator/pkg/apis/myfirstcontroller/v1alpha1"
-	"MSHR-Doc/k8s/crd/code_generator/pkg/generated/clientset/versioned/scheme"
-
+	v1alpha1 "github.com/MSHR-Dec/MSHR-Doc/k8s/crd/code_generator/pkg/apis/myfirstcontroller/v1alpha1"
+	"github.com/MSHR-Dec/MSHR-Doc/k8s/crd/code_generator/pkg/generated/clientset/versioned/scheme"
 	rest "k8s.io/client-go/rest"
 )
 

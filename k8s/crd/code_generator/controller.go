@@ -21,11 +21,11 @@ import (
 	"k8s.io/client-go/util/workqueue"
 	"k8s.io/klog/v2"
 
-	myfirstcontrollerv1alpha1 "MSHR-Doc/k8s/crd/code_generator/pkg/apis/myfirstcontroller/v1alpha1"
-	clientset "MSHR-Doc/k8s/crd/code_generator/pkg/generated/clientset/versioned"
-	myfirstcontrollerscheme "MSHR-Doc/k8s/crd/code_generator/pkg/generated/clientset/versioned/scheme"
-	informers "MSHR-Doc/k8s/crd/code_generator/pkg/generated/informers/externalversions/myfirstcontroller/v1alpha1"
-	listers "MSHR-Doc/k8s/crd/code_generator/pkg/generated/listers/myfirstcontroller/v1alpha1"
+	myfirstcontrollerv1alpha1 "github.com/MSHR-Dec/MSHR-Doc/k8s/crd/code_generator/pkg/apis/myfirstcontroller/v1alpha1"
+	clientset "github.com/MSHR-Dec/MSHR-Doc/k8s/crd/code_generator/pkg/generated/clientset/versioned"
+	myfirstcontrollerscheme "github.com/MSHR-Dec/MSHR-Doc/k8s/crd/code_generator/pkg/generated/clientset/versioned/scheme"
+	informers "github.com/MSHR-Dec/MSHR-Doc/k8s/crd/code_generator/pkg/generated/informers/externalversions/myfirstcontroller/v1alpha1"
+	listers "github.com/MSHR-Dec/MSHR-Doc/k8s/crd/code_generator/pkg/generated/listers/myfirstcontroller/v1alpha1"
 )
 
 const controllerAgentName = "mineController"

@@ -1,4 +1,4 @@
-module MSHR-Doc/k8s/crd
+module github.com/MSHR-Dec/MSHR-Doc/k8s/crd
 
 go 1.16
 

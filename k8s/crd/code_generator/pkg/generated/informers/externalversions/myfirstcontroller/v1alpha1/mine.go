@@ -19,13 +19,13 @@ limitations under the License.
 package v1alpha1
 
 import (
-	myfirstcontrollerv1alpha1 "MSHR-Doc/k8s/crd/code_generator/pkg/apis/myfirstcontroller/v1alpha1"
-	versioned "MSHR-Doc/k8s/crd/code_generator/pkg/generated/clientset/versioned"
-	internalinterfaces "MSHR-Doc/k8s/crd/code_generator/pkg/generated/informers/externalversions/internalinterfaces"
-	v1alpha1 "MSHR-Doc/k8s/crd/code_generator/pkg/generated/listers/myfirstcontroller/v1alpha1"
 	"context"
 	time "time"
 
+	myfirstcontrollerv1alpha1 "github.com/MSHR-Dec/MSHR-Doc/k8s/crd/code_generator/pkg/apis/myfirstcontroller/v1alpha1"
+	versioned "github.com/MSHR-Dec/MSHR-Doc/k8s/crd/code_generator/pkg/generated/clientset/versioned"
+	internalinterfaces "github.com/MSHR-Dec/MSHR-Doc/k8s/crd/code_generator/pkg/generated/informers/externalversions/internalinterfaces"
+	v1alpha1 "github.com/MSHR-Dec/MSHR-Doc/k8s/crd/code_generator/pkg/generated/listers/myfirstcontroller/v1alpha1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	watch "k8s.io/apimachinery/pkg/watch"

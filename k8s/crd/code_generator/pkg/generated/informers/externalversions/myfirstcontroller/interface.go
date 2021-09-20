@@ -19,8 +19,8 @@ limitations under the License.
 package myfirstcontroller
 
 import (
-	internalinterfaces "MSHR-Doc/k8s/crd/code_generator/pkg/generated/informers/externalversions/internalinterfaces"
-	v1alpha1 "MSHR-Doc/k8s/crd/code_generator/pkg/generated/informers/externalversions/myfirstcontroller/v1alpha1"
+	internalinterfaces "github.com/MSHR-Dec/MSHR-Doc/k8s/crd/code_generator/pkg/generated/informers/externalversions/internalinterfaces"
+	v1alpha1 "github.com/MSHR-Dec/MSHR-Doc/k8s/crd/code_generator/pkg/generated/informers/externalversions/myfirstcontroller/v1alpha1"
 )
 
 // Interface provides access to each of this group's versions.

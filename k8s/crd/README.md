@@ -27,10 +27,10 @@ go get k8s.io/code-generator/...
 ```
 $GOPATH/pkg/mod/k8s.io/code-generator@v0.22.1/generate-groups.sh \
     all \
-    MSHR-Doc/k8s/crd/code_generator/pkg/generated \
-    MSHR-Doc/k8s/crd/code_generator/pkg/apis myfirstcontroller:v1alpha1 \
+    github.com/MSHR-Dec/MSHR-Doc/k8s/crd/code_generator/pkg/generated \
+    github.com/MSHR-Dec/MSHR-Doc/k8s/crd/code_generator/pkg/apis myfirstcontroller:v1alpha1 \
     -h $GOPATH/pkg/mod/k8s.io/code-generator@v0.22.1/hack/boilerplate.go.txt \
-    -o ../../../
+    -o ../../../../../
 ```
 
 ### Build my controller for deploying to kubernetes.

@@ -5,7 +5,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	"MSHR-Doc/k8s/crd/code_generator/pkg/apis/myfirstcontroller"
+	"github.com/MSHR-Dec/MSHR-Doc/k8s/crd/code_generator/pkg/apis/myfirstcontroller"
 )
 
 // SchemeGroupVersion is group version used to register these objects

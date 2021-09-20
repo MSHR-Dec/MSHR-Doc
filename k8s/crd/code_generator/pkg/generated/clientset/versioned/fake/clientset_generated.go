@@ -19,10 +19,9 @@ limitations under the License.
 package fake
 
 import (
-	clientset "MSHR-Doc/k8s/crd/code_generator/pkg/generated/clientset/versioned"
-	myfirstcontrollerv1alpha1 "MSHR-Doc/k8s/crd/code_generator/pkg/generated/clientset/versioned/typed/myfirstcontroller/v1alpha1"
-	fakemyfirstcontrollerv1alpha1 "MSHR-Doc/k8s/crd/code_generator/pkg/generated/clientset/versioned/typed/myfirstcontroller/v1alpha1/fake"
-
+	clientset "github.com/MSHR-Dec/MSHR-Doc/k8s/crd/code_generator/pkg/generated/clientset/versioned"
+	myfirstcontrollerv1alpha1 "github.com/MSHR-Dec/MSHR-Doc/k8s/crd/code_generator/pkg/generated/clientset/versioned/typed/myfirstcontroller/v1alpha1"
+	fakemyfirstcontrollerv1alpha1 "github.com/MSHR-Dec/MSHR-Doc/k8s/crd/code_generator/pkg/generated/clientset/versioned/typed/myfirstcontroller/v1alpha1/fake"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"

@@ -9,9 +9,9 @@ import (
 	"k8s.io/client-go/tools/clientcmd"
 	"k8s.io/klog/v2"
 
-	clientset "MSHR-Doc/k8s/crd/code_generator/pkg/generated/clientset/versioned"
-	informers "MSHR-Doc/k8s/crd/code_generator/pkg/generated/informers/externalversions"
-	"MSHR-Doc/k8s/crd/code_generator/pkg/signals"
+	clientset "github.com/MSHR-Dec/MSHR-Doc/k8s/crd/code_generator/pkg/generated/clientset/versioned"
+	informers "github.com/MSHR-Dec/MSHR-Doc/k8s/crd/code_generator/pkg/generated/informers/externalversions"
+	"github.com/MSHR-Dec/MSHR-Doc/k8s/crd/code_generator/pkg/signals"
 )
 
 var (

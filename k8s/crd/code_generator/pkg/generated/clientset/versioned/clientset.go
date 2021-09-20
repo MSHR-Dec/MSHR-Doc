@@ -19,9 +19,9 @@ limitations under the License.
 package versioned
 
 import (
-	myfirstcontrollerv1alpha1 "MSHR-Doc/k8s/crd/code_generator/pkg/generated/clientset/versioned/typed/myfirstcontroller/v1alpha1"
 	"fmt"
 
+	myfirstcontrollerv1alpha1 "github.com/MSHR-Dec/MSHR-Doc/k8s/crd/code_generator/pkg/generated/clientset/versioned/typed/myfirstcontroller/v1alpha1"
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"
 	flowcontrol "k8s.io/client-go/util/flowcontrol"
