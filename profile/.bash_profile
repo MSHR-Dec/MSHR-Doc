@@ -7,5 +7,6 @@ alias ls='ls -G'
 alias glog='git log --oneline'
 
 PATH="/usr/local/bin:$PATH"
+PATH="$GOPATH/bin:$PATH"
 
 eval "$(anyenv init -)"
