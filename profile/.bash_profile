@@ -24,9 +24,9 @@ peco-history() {
   fi
 }
 
-source /usr/local/etc/bash_completion.d/git-prompt.sh
-source /usr/local/etc/bash_completion.d/git-completion.bash
-source /usr/local/etc/profile.d/z.sh
+source /opt/homebrew/etc/bash_completion.d/git-prompt.sh
+source /opt/homebrew/etc/bash_completion.d/git-completion.bash
+source /opt/homebrew/etc/profile.d/z.sh
 GIT_PS1_SHOWDIRTYSTATE=true
 PS1='\[\033[0m\]:\[\033[35m\]\w \[\033[31m\]$(__git_ps1)\n\[\033[0m\]$ '
 
@@ -40,4 +40,5 @@ alias lzd='lazydocker'
 PATH="/usr/local/bin:$PATH"
 PATH="$GOPATH/bin:$PATH"
 
+eval "$(/opt/homebrew/bin/brew shellenv)"
 eval "$(anyenv init -)"
