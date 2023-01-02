@@ -1,0 +1,7 @@
+resources:
+- job.yaml
+# - serviceaccount.yaml
+# - deployment.yaml
+- crd.yaml
+- sample.yaml
+# - mine.yaml

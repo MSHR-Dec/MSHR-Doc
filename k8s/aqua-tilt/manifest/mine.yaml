@@ -1,0 +1,8 @@
+apiVersion: myfirstcontroller.mshr.doc/v1alpha1
+kind: Mine
+metadata:
+  name: mine
+spec:
+  jobName: hello-sample
+  image: hello-sample:latest
+  replicas: 1

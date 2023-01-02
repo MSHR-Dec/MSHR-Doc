@@ -1,0 +1,6 @@
+apiVersion: "myfirstcontroller.mshr.doc/v1alpha1"
+kind: Mine
+metadata:
+  name: sample
+spec:
+  image: hello-sample:latest

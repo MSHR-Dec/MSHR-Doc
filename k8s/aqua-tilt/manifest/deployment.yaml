@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myfirstcontroller
+  labels:
+    app: myfirstcontroller
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: myfirstcontroller
+      labels:
+        app: myfirstcontroller
+    spec:
+      serviceAccountName: default
+      containers:
+        - name: myfirstcontroller
+          image: myfirstcontroller:latest
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: myfirstcontroller

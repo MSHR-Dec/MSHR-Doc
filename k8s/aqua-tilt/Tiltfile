@@ -1,0 +1,20 @@
+#docker_build(
+#    'myfirstcontroller:latest',
+#    context='go/',
+#    dockerfile='go/build/crd/Dockerfile'
+#)
+
+docker_build(
+    'hello-job:latest',
+    context='go/',
+    dockerfile='go/build/job/Dockerfile'
+)
+
+docker_build(
+    'hello-sample:latest',
+    context='go/',
+    dockerfile='go/build/sample/Dockerfile'
+)
+
+k8s_yaml(kustomize('./manifest'))
+k8s_kind('Mine', image_json_path='{.spec.image}')
