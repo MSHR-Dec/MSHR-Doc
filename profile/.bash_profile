@@ -3,7 +3,7 @@
 export HISTCONTROL="ignoredups"
 peco-history() {
   local NUM=$(history | wc -l)
-  local FIRST=$(-1*(NUM-1))
+  local FIRST=$((-1*(NUM-1)))
 
   if [ $FIRST -eq 0 ] ; then
     history -d $((HISTCMD-1))
@@ -23,6 +23,7 @@ peco-history() {
     history -d $((HISTCMD-1))
   fi
 }
+bind '"\C-r":"peco-history\n"'
 
 source /opt/homebrew/etc/bash_completion.d/git-prompt.sh
 source /opt/homebrew/etc/bash_completion.d/git-completion.bash
@@ -34,11 +35,12 @@ alias ls='ls -G'
 alias glog='git log --oneline'
 alias rand='cat /dev/urandom | base64 | fold -w 10 | head -n 1'
 alias reload='exec $SHELL -l'
-alias his='peco-history'
 alias lzd='lazydocker'
+alias k='kubectl'
 
-PATH="/usr/local/bin:$PATH"
-PATH="$GOPATH/bin:$PATH"
+export PATH="/usr/local/bin:$PATH"
+export PATH="$GOPATH/bin:$PATH"
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 eval "$(anyenv init -)"
+eval "$(direnv hook bash)"

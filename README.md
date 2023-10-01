@@ -7,8 +7,8 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 ```
-brew install anyenv bash lazydocker git peco tig tree z
-brew install --cask docker google-chrome intellij-idea slack visual-studio-code
+brew install anyenv bash direnv lazydocker git peco tig tree z
+brew install --cask docker fig google-chrome intellij-idea raycast slack visual-studio-code
 anyenv init
 anyenv install --init
 anyenv install goenv
