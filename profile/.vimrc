@@ -3,12 +3,19 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
+Plug '/opt/homebrew/opt/fzf'
+Plug 'godlygeek/tabular'
+Plug 'preservim/vim-markdown'
 
 call plug#end()
 
 " NERDTree
 nnoremap <C-l> :NERDTree<CR>
 let NERDTreeShowLineNumbers=1
+let NERDTreeShowHidden=1
+
+" FZF
+set rtp+=/opt/homebrew/opt/fzf
 
 " common
 set number
@@ -45,8 +52,22 @@ set smartindent
 set noswapfile
 set nofoldenable
 set title
+set hidden
 set clipboard=unnamed,autoselect
+
+map <C-Tab> :bn<CR>
+map <C-S-Tab> :bp<CR>
+nnoremap x "_x
+nnoremap s "_s
 nnoremap <Esc><Esc> :nohlsearch<CR><ESC>
+nnoremap <S-F> :%!jq .<CR><ESC>
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-d> <Del>
 
 set cursorline
 highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
@@ -56,3 +77,4 @@ highlight CursorLine gui=underline guifg=NONE guibg=NONE
 syntax on
 set background=dark
 colorscheme hybrid
+
