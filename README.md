@@ -11,6 +11,4 @@ brew install anyenv bash direnv lazydocker git peco tig tree z
 brew install --cask docker fig google-chrome intellij-idea raycast slack visual-studio-code
 anyenv init
 anyenv install --init
-anyenv install goenv
-mkdir $HOME/go
 ```

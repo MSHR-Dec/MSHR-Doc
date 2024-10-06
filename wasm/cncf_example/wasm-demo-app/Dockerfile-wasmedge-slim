@@ -1,0 +1,4 @@
+FROM wasmedge/slim-runtime:0.10.1
+
+COPY http-server/target/wasm32-wasi/release/http-server.wasm /
+CMD ["wasmedge", "--dir", ".:/", "/http-server.wasm"]

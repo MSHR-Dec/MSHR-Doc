@@ -1,2 +1,6 @@
 # editor
 .idea
+
+terraform.tfstate
+terraform.tfstate.*
+.terraform

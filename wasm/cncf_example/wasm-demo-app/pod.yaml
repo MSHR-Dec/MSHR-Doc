@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: wasm-demo-app
+  annotations:
+    module.wasm.image/variant: compat
+spec:
+  runtimeClassName: crun
+  containers:
+    - name: wasm-demo-app
+      image: wasm-demo-app:v1
+      ports:
+        - containerPort: 8080

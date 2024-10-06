@@ -1,0 +1,55 @@
+#!/bin/bash -ex
+
+# turn swap off
+swapoff -a
+
+# install pre-requirements
+apt update
+apt install -y apt-transport-https ca-certificates curl gpg
+
+# install kubernetes tools
+# https://kubernetes.io/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#kubeadm-kubelet-kubectl%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v${kubernetes_version}/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v${kubernetes_version}/deb/ /" | tee /etc/apt/sources.list.d/kubernetes.list
+
+apt update
+apt install -y kubelet kubeadm kubectl
+apt-mark hold kubelet kubeadm kubectl
+
+# install containerd
+# https://github.com/containerd/containerd/blob/main/docs/getting-started.md#getting-started-with-containerd
+curl -sSLO https://github.com/containerd/containerd/releases/download/v${containerd_version}/containerd-${containerd_version}-linux-amd64.tar.gz
+tar Cxzvf /usr/local containerd-${containerd_version}-linux-amd64.tar.gz bin/
+rm containerd-${containerd_version}-linux-amd64.tar.gz
+
+curl -sSL https://raw.githubusercontent.com/containerd/containerd/main/containerd.service -o /etc/systemd/system/containerd.service
+systemctl daemon-reload
+systemctl enable --now containerd
+
+curl -sSLO https://github.com/opencontainers/runc/releases/download/v${runc_version}/runc.amd64
+install -m 755 runc.amd64 /usr/local/sbin/runc
+rm runc.amd64
+
+mkdir -p /opt/cni/bin
+curl -sSLO https://github.com/containernetworking/plugins/releases/download/v${cni_version}/cni-plugins-linux-amd64-v${cni_version}.tgz
+tar Cxzvf /opt/cni/bin cni-plugins-linux-amd64-v${cni_version}.tgz
+rm cni-plugins-linux-amd64-v${cni_version}.tgz
+
+# https://kubernetes.io/docs/setup/production-environment/container-runtimes/#install-and-configure-prerequisites
+cat <<EOF | tee /etc/modules-load.d/k8s.conf
+overlay
+br_netfilter
+EOF
+
+modprobe overlay
+modprobe br_netfilter
+
+cat <<EOF | tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-iptables  = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.ipv4.ip_forward                 = 1
+EOF
+
+sysctl --system
+
+kubeadm init --control-plane-endpoint $(hostname -i)
