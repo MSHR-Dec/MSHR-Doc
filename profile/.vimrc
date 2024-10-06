@@ -77,4 +77,3 @@ highlight CursorLine gui=underline guifg=NONE guibg=NONE
 syntax on
 set background=dark
 colorscheme hybrid
-
