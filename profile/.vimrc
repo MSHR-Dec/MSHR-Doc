@@ -4,8 +4,17 @@ call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug '/opt/homebrew/opt/fzf'
-Plug 'godlygeek/tabular'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'preservim/vim-markdown'
+Plug 'voldikss/vim-floaterm'
+Plug 'vim-airline/vim-airline'
+Plug 'airblade/vim-gitgutter'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'mattn/vim-goimports'
 
 call plug#end()
 
@@ -16,6 +25,20 @@ let NERDTreeShowHidden=1
 
 " FZF
 set rtp+=/opt/homebrew/opt/fzf
+let g:fzf_vim = {}
+
+" Floaterm
+nmap <C-t> :FloatermNew /bin/bash --login<CR>
+
+" vim-airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = ''
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
 
 " common
 set number
@@ -55,8 +78,8 @@ set title
 set hidden
 set clipboard=unnamed,autoselect
 
-map <C-Tab> :bn<CR>
-map <C-S-Tab> :bp<CR>
+nnoremap <C-N> :bnext<CR>
+nnoremap <C-P> :bprev<CR>
 nnoremap x "_x
 nnoremap s "_s
 nnoremap <Esc><Esc> :nohlsearch<CR><ESC>
@@ -72,6 +95,8 @@ cnoremap <C-d> <Del>
 set cursorline
 highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
 highlight CursorLine gui=underline guifg=NONE guibg=NONE
+
+autocmd VimEnter * silent! execute 'e ~/.vimrc | e ~/.bash_profile | b1'
 
 " theme
 syntax on
