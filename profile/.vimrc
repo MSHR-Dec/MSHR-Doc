@@ -6,6 +6,8 @@ Plug 'jistr/vim-nerdtree-tabs'
 Plug '/opt/homebrew/opt/fzf'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'dense-analysis/ale'
 Plug 'preservim/vim-markdown'
 Plug 'voldikss/vim-floaterm'
 Plug 'vim-airline/vim-airline'
@@ -15,6 +17,8 @@ Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'mattn/vim-goimports'
+Plug 'tpope/vim-endwise'
+Plug 'hashivim/vim-terraform'
 
 call plug#end()
 
@@ -22,10 +26,36 @@ call plug#end()
 nnoremap <C-l> :NERDTree<CR>
 let NERDTreeShowLineNumbers=1
 let NERDTreeShowHidden=1
+let g:NERDTreeWinSize=50
 
 " FZF
 set rtp+=/opt/homebrew/opt/fzf
 let g:fzf_vim = {}
+
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+command! -bang -nargs=* Ag
+  \ call fzf#vim#ag(<q-args>,
+  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \                 <bang>0)
+
+nnoremap fl :Files<CR>
+nnoremap ff :Ag<CR>
+
+" coc
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+
+nmap  gd (coc-definition)
 
 " Floaterm
 nmap <C-t> :FloatermNew /bin/bash --login<CR>
@@ -39,6 +69,9 @@ let g:airline_left_sep = '»'
 let g:airline_left_sep = '▶'
 let g:airline_right_sep = '«'
 let g:airline_right_sep = '◀'
+
+" vim-terraform
+let g:terraform_fmt_on_save=1
 
 " common
 set number
