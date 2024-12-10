@@ -6,18 +6,7 @@ require('toggleterm').setup{
   shell = '/bin/bash --login',
 }
 vim.keymap.set('t', '<F12>', [[<c-\><c-n>]], { noremap = true })
-
-local Terminal = require('toggleterm.terminal').Terminal
-local tig = Terminal:new({
-  cmd = '/bin/bash --login',
-  dir = vim.fn.getcwd(),
-  direction = 'float',
-  hidden = true,
-})
-function Tig()
-  tig:toggle()
-end
-vim.api.nvim_set_keymap('n', '<Leader>tig', '<cmd>lua Tig()<cr>', { noremap = true })
+vim.keymap.set('n', '<Leader>tig', "<cmd>lua require('tig').toggle()<cr>")
 
 -- fzf-lua
 vim.keymap.set('n', '<Leader>grep', require('fzf-lua').grep)

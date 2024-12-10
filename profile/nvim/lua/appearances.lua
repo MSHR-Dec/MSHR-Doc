@@ -13,7 +13,7 @@ require'nvim-treesitter.configs'.setup {
 vim.g.NERDTreeShowLineNumbers = 1
 vim.g.NERDTreeShowHidden = 1
 vim.g.NERDTreeWinSize = 50
-vim.keymap.set('n', '<c-l>', '<cmd>NERDTreeToggle<cr>', { remap = true })
+vim.keymap.set('n', '<c-b>', '<cmd>NERDTreeToggle<cr>', { remap = true })
 
 -- vim-airline
 vim.g.airline_left_sep = '▶'
