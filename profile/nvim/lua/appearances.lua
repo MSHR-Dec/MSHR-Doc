@@ -18,7 +18,7 @@ vim.keymap.set('n', '<c-b>', '<cmd>NERDTreeToggle<cr>', { remap = true })
 -- vim-airline
 vim.g.airline_left_sep = '▶'
 vim.g.airline_right_sep = '◀'
-vim.g.airline_theme = 'raven'
+vim.g.airline_theme = 'violet'
 
 -- bufferline.nvim
 vim.opt.termguicolors = true
