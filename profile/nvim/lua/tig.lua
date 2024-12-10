@@ -9,7 +9,7 @@ M.toggle = function()
     count = count + string.byte(char)
   end
 
-  local term = Terminal:new({ cmd = 'tig', direction = 'float', hidden = true, count = count })
+  local term = Terminal:new({ cmd = 'tig', direction = 'float', count = count })
 
   term:toggle()
 end
