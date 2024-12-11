@@ -7,3 +7,4 @@ ln -fnsv "${PWD}"/lua/common.lua ~/.config/nvim/lua/common.lua
 ln -fnsv "${PWD}"/lua/plugins.lua ~/.config/nvim/lua/plugins.lua
 ln -fnsv "${PWD}"/lua/tig.lua ~/.config/nvim/lua/tig.lua
 ln -fnsv "${PWD}"/lua/tools.lua ~/.config/nvim/lua/tools.lua
+ln -fnsv "${PWD}"/lua/lsps.lua ~/.config/nvim/lua/lsps.lua
