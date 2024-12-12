@@ -25,6 +25,13 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 require("lspconfig").clangd.setup {
   capabilities = capabilities,
 }
+require("lspconfig").terraformls.setup({
+  capabilities = vim.lsp.protocol.make_client_capabilities(),
+  on_attach = function(client, bufnr)
+    client.server_capabilities.semanticTokensProvider = nil
+  end,
+})
+
 
 -- vim-terraform
 vim.g.terraform_fmt_on_save = 1
