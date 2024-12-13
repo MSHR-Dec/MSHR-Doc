@@ -21,6 +21,7 @@ Plug('williamboman/mason.nvim')
 Plug('williamboman/mason-lspconfig.nvim')
 Plug('hrsh7th/nvim-cmp')
 Plug('hrsh7th/cmp-nvim-lsp')
+Plug('hrsh7th/cmp-cmdline')
 Plug('hashivim/vim-terraform')
 
 vim.call('plug#end')
