@@ -3,10 +3,18 @@ require("toggleterm").setup{
   size = vim.o.lines * 0.35,
   open_mapping = [[<c-t>]],
   direction = "horizontal",
-  shell = "/bin/bash --login",
+  shell = "/bin/zsh --login",
 }
 vim.keymap.set("t", "<F12>", [[<c-\><c-n>]], { noremap = true })
 vim.keymap.set("n", "<Leader>tig", "<cmd>lua require(\"tig\").toggle()<cr>")
+-- Requirement:
+--  Set "fullscreen" to `gui.screenMode` in the config
+--  see: https://github.com/jesseduffield/lazydocker/blob/master/docs/Config.md
+vim.keymap.set("n", "<Leader>lzd", function()
+  Terminal  = require("toggleterm.terminal").Terminal:new({
+    cmd = "lazydocker", direction = "float",
+  }):toggle()
+end)
 
 -- fzf-lua
 vim.keymap.set("n", "<Leader>grep", require("fzf-lua").grep)
