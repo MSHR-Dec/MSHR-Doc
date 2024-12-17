@@ -13,6 +13,7 @@ ln -fnsv "${DIR}"/nvim/lua/lsps.lua ~/.config/nvim/lua/lsps.lua
 
 ln -fnsv "${DIR}"/.vimrc ~/.vimrc
 
+mkdir -p ~/.znap/plugins
 ln -fnsv "${DIR}"/.zshrc ~/.zshrc
 
 ln -fnsv "${DIR}"/.hyper.js ~/.hyper.js
