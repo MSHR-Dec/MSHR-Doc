@@ -23,7 +23,7 @@ Plug 'hashivim/vim-terraform'
 call plug#end()
 
 " NERDTree
-nnoremap <C-l> :NERDTree<CR>
+nnoremap <C-b> :NERDTreeToggle<CR>
 let NERDTreeShowLineNumbers=1
 let NERDTreeShowHidden=1
 let g:NERDTreeWinSize=50
@@ -58,7 +58,7 @@ inoremap <silent><expr> <Tab>
 nmap  gd (coc-definition)
 
 " Floaterm
-nmap <C-t> :FloatermNew /bin/bash --login<CR>
+nmap <C-t> :FloatermToggle /bin/bash --login<CR>
 
 " vim-airline
 let g:airline#extensions#tabline#enabled = 1
@@ -129,9 +129,5 @@ set cursorline
 highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
 highlight CursorLine gui=underline guifg=NONE guibg=NONE
 
-autocmd VimEnter * silent! execute 'e ~/.vimrc | e ~/.bash_profile | b1'
-
 " theme
 syntax on
-set background=dark
-colorscheme hybrid

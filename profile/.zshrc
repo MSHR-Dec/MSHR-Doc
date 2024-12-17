@@ -1,23 +1,18 @@
-source /opt/homebrew/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-source /opt/homebrew/etc/bash_completion.d/git-prompt.sh
-source /opt/homebrew/etc/profile.d/z.sh
+[[ -r ~/.znap/zsh-snap/znap.zsh ]] ||
+    git clone --depth 1 -- \
+        https://github.com/marlonrichert/zsh-snap.git ~/.znap/zsh-snap
+source ~/.znap/zsh-snap/znap.zsh
 
-zstyle ':completion:*:*:git:*' script /opt/homebrew/etc/bash_completion.d/git-completion.bash
-autoload -Uz compinit && compinit
-GIT_PS1_SHOWDIRTYSTATE=true
-GIT_PS1_SHOWUNTRACKEDFILES=true
-GIT_PS1_SHOWSTASHSTATE=true
+zstyle ':znap:*' repos-dir ~/.znap/plugins
 
-setopt PROMPT_SUBST ; PS1='%F{reset}:%F{magenta}%~ %F{red}$(__git_ps1)
-%F{reset}$ '
+znap prompt sindresorhus/pure
+zstyle :prompt:pure:path color magenta
+zstyle :prompt:pure:git:branch color red
+zstyle ':prompt:pure:prompt:*' color reset
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
-export GOPATH="$HOME/go"
-export PATH="/usr/local/bin:$PATH"
-export PATH="$GOPATH/bin:$PATH"
+znap source marlonrichert/zsh-autocomplete
+znap source rupa/z
 
 alias ls='gls --color'
-alias reload='exec $SHELL -l'
-alias lzd='lazydocker'
-alias v='nvim'
+
+[[ -f ~/.zsh_override ]] && source ~/.zsh_override

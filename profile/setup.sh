@@ -11,6 +11,8 @@ ln -fnsv "${DIR}"/nvim/lua/tig.lua ~/.config/nvim/lua/tig.lua
 ln -fnsv "${DIR}"/nvim/lua/tools.lua ~/.config/nvim/lua/tools.lua
 ln -fnsv "${DIR}"/nvim/lua/lsps.lua ~/.config/nvim/lua/lsps.lua
 
+ln -fnsv "${DIR}"/.vimrc ~/.vimrc
+
 ln -fnsv "${DIR}"/.zshrc ~/.zshrc
 
 ln -fnsv "${DIR}"/.hyper.js ~/.hyper.js
