@@ -13,6 +13,8 @@ zstyle ':prompt:pure:prompt:*' color reset
 znap source marlonrichert/zsh-autocomplete
 znap source rupa/z
 
-alias ls='gls --color'
+source <(fzf --zsh)
+
+alias zfz='z | fzf'
 
 [[ -f ~/.zsh_override ]] && source ~/.zsh_override
