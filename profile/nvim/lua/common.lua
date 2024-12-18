@@ -45,3 +45,13 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
+
+-- commands
+vim.api.nvim_create_user_command(
+  'MO',
+  function()
+    local custom_path = vim.fn.stdpath('config') .. '/lua/custom.lua'
+    vim.cmd('edit ' .. custom_path)
+  end,
+  {}
+)
