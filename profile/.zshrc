@@ -1,3 +1,12 @@
+function zfz() {
+  local z=$(z | awk '{ print $2 }' | fzf --reverse)
+  if [ -n "${z}" ]; then
+    BUFFER="cd ${z}"
+    zle accept-line
+  fi
+  zle clear-screen
+}
+
 [[ -r ~/.znap/zsh-snap/znap.zsh ]] ||
     git clone --depth 1 -- \
         https://github.com/marlonrichert/zsh-snap.git ~/.znap/zsh-snap
@@ -15,6 +24,7 @@ znap source rupa/z
 
 source <(fzf --zsh)
 
-alias zfz='z | fzf'
+zle -N zfz
+bindkey '^z' zfz
 
 [[ -f ~/.zsh_override ]] && source ~/.zsh_override
