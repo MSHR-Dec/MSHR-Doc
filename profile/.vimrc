@@ -28,35 +28,6 @@ let NERDTreeShowLineNumbers=1
 let NERDTreeShowHidden=1
 let g:NERDTreeWinSize=50
 
-" FZF
-set rtp+=/opt/homebrew/opt/fzf
-let g:fzf_vim = {}
-
-command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-
-command! -bang -nargs=* Ag
-  \ call fzf#vim#ag(<q-args>,
-  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
-  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \                 <bang>0)
-
-nnoremap fl :Files<CR>
-nnoremap ff :Ag<CR>
-
-" coc
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-inoremap <silent><expr> <Tab>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<Tab>" :
-      \ coc#refresh()
-
-nmap  gd (coc-definition)
-
 " Floaterm
 nmap <C-t> :FloatermToggle /bin/bash --login<CR>
 
