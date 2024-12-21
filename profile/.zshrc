@@ -22,8 +22,6 @@ zstyle ':prompt:pure:prompt:*' color reset
 znap source marlonrichert/zsh-autocomplete
 znap source rupa/z
 
-source <(fzf --zsh)
-
 zle -N zfz
 bindkey '^z' zfz
 

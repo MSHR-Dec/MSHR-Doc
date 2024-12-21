@@ -5,6 +5,7 @@ vim.g.maplocalleader = "\\"
 vim.opt.ambiwidth = "double"
 vim.opt.cinoptions:append(":0")
 vim.opt.clipboard = { "unnamedplus" }
+vim.opt.cmdheight = 1
 vim.opt.cursorline = true
 vim.opt.expandtab = true
 vim.opt.ignorecase = true
