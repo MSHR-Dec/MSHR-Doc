@@ -19,6 +19,7 @@ ln -fnsv "${DIR}"/nvim/lua/lspkeymap.lua ~/.config/nvim/lua/lspkeymap.lua
 ln -fnsv "${DIR}"/nvim/lua/custom/coc.lua ~/.config/nvim/lua/custom/coc.lua
 ln -fnsv "${DIR}"/nvim/lua/custom/requirements.lua ~/.config/nvim/lua/custom/requirements.lua
 ln -fnsv "${DIR}"/nvim/lua/custom/ruby.lua ~/.config/nvim/lua/custom/ruby.lua
+ln -fnsv "${DIR}"/nvim/lua/custom/go.lua ~/.config/nvim/lua/custom/go.lua
 
 ln -fnsv "${DIR}"/.vimrc ~/.vimrc
 
