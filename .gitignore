@@ -4,3 +4,6 @@
 terraform.tfstate
 terraform.tfstate.*
 .terraform
+
+# dotfiles
+requirements.lua

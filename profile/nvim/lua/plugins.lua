@@ -32,4 +32,6 @@ Plug('nvim-lua/plenary.nvim')
 Plug('CopilotC-Nvim/CopilotChat.nvim')
 Plug('liuchengxu/vista.vim')
 
+Plug('neoclide/coc.nvim', { ['branch'] = 'release' })
+
 vim.call('plug#end')
