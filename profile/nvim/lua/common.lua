@@ -5,6 +5,7 @@ vim.g.maplocalleader = "\\"
 vim.opt.ambiwidth = "double"
 vim.opt.cinoptions:append(":0")
 vim.opt.clipboard = { "unnamedplus" }
+vim.opt.cmdheight = 1
 vim.opt.cursorline = true
 vim.opt.expandtab = true
 vim.opt.ignorecase = true
@@ -45,13 +46,3 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
-
--- commands
-vim.api.nvim_create_user_command(
-  'MO',
-  function()
-    local custom_path = vim.fn.stdpath('config') .. '/lua/custom.lua'
-    vim.cmd('edit ' .. custom_path)
-  end,
-  {}
-)

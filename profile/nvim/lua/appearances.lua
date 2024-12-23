@@ -19,7 +19,7 @@ require"nvim-treesitter.configs".setup {
 -- nerdtree
 vim.g.NERDTreeShowLineNumbers = 1
 vim.g.NERDTreeShowHidden = 1
-vim.g.NERDTreeWinSize = 50
+vim.g.NERDTreeWinSize = 46
 vim.keymap.set("n", "<c-b>", "<cmd>NERDTreeToggle<cr>", { remap = true })
 
 -- vim-airline

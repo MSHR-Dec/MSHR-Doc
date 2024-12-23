@@ -25,5 +25,13 @@ Plug('hrsh7th/cmp-nvim-lsp')
 Plug('hrsh7th/cmp-cmdline')
 Plug('hashivim/vim-terraform')
 Plug('easymotion/vim-easymotion')
+Plug('github/copilot.vim')
+Plug('zbirenbaum/copilot.lua')
+Plug('zbirenbaum/copilot-cmp')
+Plug('nvim-lua/plenary.nvim')
+Plug('CopilotC-Nvim/CopilotChat.nvim')
+Plug('liuchengxu/vista.vim')
+
+Plug('neoclide/coc.nvim', { ['branch'] = 'release' })
 
 vim.call('plug#end')

@@ -27,3 +27,8 @@ vim.g.memolist_path = "$HOME/.memo"
 vim.keymap.set("n", "<Leader>mn", "<cmd>MemoNew<cr>", { noremap = true })
 vim.keymap.set("n", "<Leader>ml", "<cmd>MemoList<cr>", { noremap = true })
 vim.keymap.set("n", "<Leader>mg", "<cmd>MemoGrep<cr>", { noremap = true })
+
+-- vim-easymotion
+vim.keymap.set("n", "<Leader>es", "<Plug>(easymotion-overwin-f2)")
+vim.keymap.set("n", "<Leader>ej", "<Plug>(easymotion-j)")
+vim.keymap.set("n", "<Leader>ek", "<Plug>(easymotion-k)")
