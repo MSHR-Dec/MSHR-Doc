@@ -3,7 +3,7 @@ require("toggleterm").setup{
   size = vim.o.lines * 0.35,
   open_mapping = [[<c-t>]],
   direction = "horizontal",
-  shell = "/bin/zsh --login",
+  shell = "/bin/bash --login",
 }
 vim.keymap.set("t", "<F12>", [[<c-\><c-n>]], { noremap = true })
 vim.keymap.set("n", "<Leader>tig", "<cmd>lua require(\"tig\").toggle()<cr>")
