@@ -22,6 +22,7 @@ ln -fnsv "${DIR}"/nvim/lua/custom/ruby.lua ~/.config/nvim/lua/custom/ruby.lua
 ln -fnsv "${DIR}"/nvim/lua/custom/go.lua ~/.config/nvim/lua/custom/go.lua
 
 ln -fnsv "${DIR}"/.vimrc ~/.vimrc
+ln -fnsv "${DIR}"/.bash_profile ~/.bash_profile
 
 mkdir -p ~/.znap/plugins
 ln -fnsv "${DIR}"/.zshrc ~/.zshrc

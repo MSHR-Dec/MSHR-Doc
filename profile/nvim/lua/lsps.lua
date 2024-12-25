@@ -2,7 +2,7 @@
 require("mason").setup()
 
 -- mason-lspconfig.nvim
-require("mason-lspconfig").setup()
+require("mason-lspconfig").setup{}
 require("mason-lspconfig").setup_handlers {
   function(server_name)
     require("lspconfig")[server_name].setup {}
@@ -14,6 +14,9 @@ require("copilot").setup({
   suggestion = { enabled = false },
   panel = { enabled = false },
 })
+
+-- copilot-cmp
+require("copilot_cmp").setup{}
 
 -- CopilotChat.nvim
 require("CopilotChat").setup{}
