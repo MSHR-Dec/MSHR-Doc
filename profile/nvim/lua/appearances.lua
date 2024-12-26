@@ -1,12 +1,8 @@
 -- theme
-local os = vim.loop.os_uname().sysname
-if os == 'Darwin' then
-  vim.cmd.colorscheme('hybrid')
-elseif os == 'Linux' then
-  vim.cmd.colorscheme('dracula')
-else
-  vim.cmd.colorscheme('default')
-end
+require("catppuccin").setup({
+  flavour = "macchiato",
+})
+vim.cmd.colorscheme('catppuccin')
 
 -- nvim-treesitter
 require"nvim-treesitter.configs".setup {

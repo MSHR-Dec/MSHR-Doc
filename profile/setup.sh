@@ -28,3 +28,4 @@ mkdir -p ~/.znap/plugins
 ln -fnsv "${DIR}"/.zshrc ~/.zshrc
 
 ln -fnsv "${DIR}"/.hyper.js ~/.hyper.js
+ln -fnsv "${DIR}"/wezterm/wezterm.lua ~/.config/wezterm/wezterm.lua

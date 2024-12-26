@@ -9,7 +9,7 @@ source /opt/homebrew/etc/profile.d/z.sh
 GIT_PS1_SHOWDIRTYSTATE=true
 PS1='\[\033[0m\]:\[\033[35m\]\w \[\033[31m\]$(__git_ps1)\n\[\033[0m\]$ '
 
-alias ls='gls -G'
+alias ls='gls --color'
 alias reload='exec $SHELL -l'
 alias lzd='lazydocker'
 alias k='kubectl'

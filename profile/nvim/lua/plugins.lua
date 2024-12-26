@@ -3,8 +3,7 @@ local Plug = vim.fn['plug#']
 
 vim.call('plug#begin')
 
-Plug('HoNamDuong/hybrid.nvim')
-Plug('Mofiqul/dracula.nvim')
+Plug('catppuccin/nvim', { ['as'] = 'catppuccin' })
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
 Plug('preservim/nerdtree')
 Plug('ryanoasis/vim-devicons')

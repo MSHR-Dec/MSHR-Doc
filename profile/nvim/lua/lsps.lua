@@ -14,6 +14,8 @@ require("copilot").setup({
   suggestion = { enabled = false },
   panel = { enabled = false },
 })
+vim.keymap.set("i", "<C-l>", "<Plug>(copilot-accept-word)")
+vim.g.copilot_no_tab_map = true
 
 -- copilot-cmp
 require("copilot_cmp").setup{}
@@ -31,6 +33,9 @@ local has_words_before = function()
 end
 cmp.setup {
   mapping = cmp.mapping.preset.insert({
+    ["<C-n>"] = cmp.mapping.select_next_item(),
+    ["<C-p>"] = cmp.mapping.select_prev_item(),
+    ['<C-e>'] = cmp.mapping.abort(),
     ["<CR>"] = cmp.mapping.confirm({ select = true }),
     ["<Tab>"] = vim.schedule_wrap(function(fallback)
       if cmp.visible() and has_words_before() then
@@ -42,7 +47,9 @@ cmp.setup {
   }),
   sources = cmp.config.sources({
     { name = "nvim_lsp" },
-    { name = "copilot" },
+    -- { name = "copilot" },
+  }, {
+    { name = "buffer" },
   })
 }
 
