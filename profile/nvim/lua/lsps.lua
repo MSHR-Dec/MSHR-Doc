@@ -9,6 +9,45 @@ require("mason-lspconfig").setup_handlers {
   end,
 }
 
+-- codecompanion.nvim
+vim.cmd([[cab cc CodeCompanion]])
+vim.api.nvim_set_keymap("n", "<Leader>chat", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "<Leader>chat", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("v", "ga", "<cmd>CodeCompanionChat Add<cr>", { noremap = true, silent = true })
+
+require("codecompanion").setup({
+  strategies = {
+    chat = {
+      adapter = "ollama",
+    },
+    inline = {
+      adapter = "ollama",
+    },
+    agent = {
+      adapter = "ollama",
+    }
+  },
+  adapters = {
+    ollama = function()
+      return require("codecompanion.adapters").extend("ollama", {
+        schema = {
+          model = {
+            default = "llama3.2",
+          }
+        }
+      })
+    end,
+  },
+  display = {
+    chat = {
+      window = {
+        position = "right",
+        width = 0.3,
+      }
+    }
+  }
+})
+
 -- copilot.vim
 require("copilot").setup({
   suggestion = { enabled = false },
@@ -21,7 +60,14 @@ vim.g.copilot_no_tab_map = true
 require("copilot_cmp").setup{}
 
 -- CopilotChat.nvim
-require("CopilotChat").setup{}
+require("CopilotChat").setup({
+  mappings = {
+    reset = {
+      normal = 'gl',
+      insert = 'gl',
+    },
+  }
+})
 
 -- nvim-cmp
 local cmp = require("cmp")
