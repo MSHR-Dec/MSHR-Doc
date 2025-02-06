@@ -10,7 +10,7 @@ require("mason-lspconfig").setup_handlers {
 }
 
 -- codecompanion.nvim
-vim.cmd([[cab cc CodeCompanion]])
+vim.cmd([[cab ollama CodeCompanion]])
 vim.api.nvim_set_keymap("n", "<Leader>chat", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", "<Leader>chat", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
 -- vim.api.nvim_set_keymap("v", "ga", "<cmd>CodeCompanionChat Add<cr>", { noremap = true, silent = true })
@@ -60,6 +60,7 @@ vim.g.copilot_no_tab_map = true
 require("copilot_cmp").setup{}
 
 -- CopilotChat.nvim
+vim.cmd([[cab cc CopilotChat]])
 require("CopilotChat").setup({
   mappings = {
     reset = {
@@ -68,6 +69,7 @@ require("CopilotChat").setup({
     },
   }
 })
+vim.keymap.set("n", "<Leader>cc", "<cmd>CopilotChatToggle<cr>")
 
 -- nvim-cmp
 local cmp = require("cmp")
@@ -93,6 +95,7 @@ cmp.setup {
   }),
   sources = cmp.config.sources({
     { name = "nvim_lsp" },
+    -- { name = "render-markdown" },
     -- { name = "copilot" },
   }, {
     { name = "buffer" },
@@ -136,3 +139,8 @@ vim.g.terraform_fmt_on_save = 1
 -- vista.vim
 vim.g.vista_default_executive = "nvim_lsp"
 vim.keymap.set("n", "<Leader>vt", "<cmd>Vista!!<cr>")
+
+-- render-markdown.nvim
+-- require("render-markdown").setup({
+--     file_types = { "md", "markdown", "quarto" },
+-- })

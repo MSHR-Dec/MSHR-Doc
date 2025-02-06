@@ -33,6 +33,7 @@ Plug('github/copilot.vim')
 Plug('zbirenbaum/copilot.lua')
 Plug('zbirenbaum/copilot-cmp')
 Plug('CopilotC-Nvim/CopilotChat.nvim')
+-- Plug('MeanderingProgrammer/render-markdown.nvim')
 
 Plug('neoclide/coc.nvim', { ['branch'] = 'release' })
 

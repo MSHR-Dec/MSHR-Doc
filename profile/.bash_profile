@@ -2,6 +2,10 @@ _zfz() {
   cd $(z | awk '{ print $2 }' | fzf --reverse)
 }
 
+_zhz() {
+  ssh $(grep -E "^Host " ~/.ssh/config | grep -v "*" | sed -e 's/Host[ ]*//g' | fzf)
+}
+
 source /opt/homebrew/etc/bash_completion.d/git-prompt.sh
 source /opt/homebrew/etc/bash_completion.d/git-completion.bash
 source /opt/homebrew/etc/profile.d/z.sh
@@ -15,9 +19,11 @@ alias lzd='lazydocker'
 alias k='kubectl'
 alias v='nvim'
 alias zz='_zfz'
+alias zh='_zhz'
 
-export GOPATH="$HOME/go"
 export PATH="/usr/local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export GOPATH="$HOME/go"
 export PATH="$GOPATH/bin:$PATH"
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -38,6 +44,8 @@ then
     done
   fi
 fi
+
+source $HOME/.bash_override
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"

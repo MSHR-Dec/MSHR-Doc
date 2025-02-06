@@ -54,11 +54,11 @@ vim.opt.termguicolors = true
 require("bufferline").setup({
   options = {
     offsets = {
-      {
-        filetype = "nerdtree",
-        text = "%{fnamemodify(getcwd(),':~')}",
-        text_align = "left",
-      },
+--       {
+--         filetype = "nerdtree",
+--         text = "%{fnamemodify(getcwd(),':~')}",
+--         text_align = "left",
+--       },
       {
         filetype = "vista_kind",
         text = "structure",
