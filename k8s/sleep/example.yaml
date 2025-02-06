@@ -1,0 +1,63 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: myjob
+spec:
+  template:
+    spec:
+      containers:
+        - name: myjob
+          image: alpine:latest
+          command: ['sh', '-c', 'i=0; while [ "$i" -lt 60 ]; do echo "logging" >> /var/log/stdout.txt; sleep 1; i=$((i+1)); done; date >> /var/log/stdout.txt; exit 0']
+          volumeMounts:
+            - name: log
+              mountPath: /var/log
+      initContainers:
+        - name: vector
+          image: "timberio/vector:0.42.0-distroless-libc"
+          restartPolicy: Always
+          args:
+            - --config-dir
+            - /etc/vector/
+          lifecycle:
+            preStop:
+              sleep:
+                seconds: 20
+          volumeMounts:
+            - name: data
+              mountPath: "/vector-data-dir"
+            - name: config
+              mountPath: "/etc/vector/"
+              readOnly: true
+            - name: log
+              mountPath: /var/log
+      restartPolicy: Never
+      volumes:
+        - name: data
+          emptyDir: {}
+        - name: config
+          configMap:
+            name: native-vector
+        - name: log
+          emptyDir: {}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: native-vector
+data:
+  agent.yaml: |
+    data_dir: /vector-data-dir
+    api:
+      enabled: false
+    sources:
+      file:
+        type: "file"
+        include: [ "/var/log/stdout.txt" ]
+    sinks:
+      out:
+        type: "console"
+        inputs:
+          - "file"
+        encoding:
+          codec: "text"

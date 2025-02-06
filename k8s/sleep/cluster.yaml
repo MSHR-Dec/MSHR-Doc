@@ -1,0 +1,15 @@
+apiVersion: ctlptl.dev/v1alpha1
+kind: Registry
+name: sleep-action-registry
+port: 5000
+---
+apiVersion: ctlptl.dev/v1alpha1
+kind: Cluster
+name: kind-sleep-action-dev
+product: kind
+registry: sleep-action-registry
+kindV1Alpha4Cluster:
+  nodes:
+    - role: control-plane
+  featureGates:
+    PodLifecycleSleepAction: true
