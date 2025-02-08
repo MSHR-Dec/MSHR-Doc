@@ -68,6 +68,11 @@ require("CopilotChat").setup({
       insert = 'gl',
     },
   }
+  window = {
+    width = 0.8,
+    height = 0.8,
+    layout = 'float'
+  }
 })
 vim.keymap.set("n", "<Leader>cc", "<cmd>CopilotChatToggle<cr>")
 
