@@ -82,19 +82,20 @@ set title
 set hidden
 set clipboard=unnamed,autoselect
 
-nnoremap <C-N> :bnext<CR>
-nnoremap <C-P> :bprev<CR>
 nnoremap x "_x
 nnoremap s "_s
 nnoremap <Esc><Esc> :nohlsearch<CR><ESC>
+nnoremap <C-N> :bnext<CR>
+nnoremap <C-P> :bprev<CR>
 nnoremap <S-F> :%!jq .<CR><ESC>
-cnoremap <C-p> <Up>
-cnoremap <C-n> <Down>
-cnoremap <C-b> <Left>
-cnoremap <C-f> <Right>
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
-cnoremap <C-d> <Del>
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
+vnoremap < <gv
+vnoremap > >gv
 
 set cursorline
 highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE

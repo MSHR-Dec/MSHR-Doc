@@ -28,5 +28,7 @@ ln -fnsv "${DIR}"/.bash_profile ~/.bash_profile
 mkdir -p ~/.znap/plugins
 ln -fnsv "${DIR}"/.zshrc ~/.zshrc
 
+ln -fnsv "${DIR}"/tmux/tmux.conf ~/.config/tmux/tmux.conf
+
 mkdir -p ~/.config/wezterm
 ln -fnsv "${DIR}"/wezterm/wezterm.lua ~/.config/wezterm/wezterm.lua
