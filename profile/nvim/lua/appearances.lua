@@ -1,12 +1,10 @@
 -- theme
-local os = vim.loop.os_uname().sysname
-if os == 'Darwin' then
-  vim.cmd.colorscheme('hybrid')
-elseif os == 'Linux' then
-  vim.cmd.colorscheme('dracula')
-else
-  vim.cmd.colorscheme('default')
-end
+require("dracula").setup({
+  colors = {
+    bg = "#2B2B2B",
+  }
+})
+vim.cmd.colorscheme('dracula')
 
 -- nvim-treesitter
 require"nvim-treesitter.configs".setup {
@@ -19,18 +17,59 @@ require"nvim-treesitter.configs".setup {
 -- nerdtree
 vim.g.NERDTreeShowLineNumbers = 1
 vim.g.NERDTreeShowHidden = 1
-vim.g.NERDTreeWinSize = 46
+vim.g.NERDTreeWinSize = vim.o.columns / 4
 vim.keymap.set("n", "<c-b>", "<cmd>NERDTreeToggle<cr>", { remap = true })
 
--- vim-airline
-vim.g.airline_left_sep = "▶"
-vim.g.airline_right_sep = "◀"
-vim.g.airline_theme = "violet"
-vim.g.airline_section_c = "%{fnamemodify(getcwd(),':~')}"
+-- lualine.nvim
+require("lualine").setup({
+  sections = {
+    lualine_c = {
+      "%{fnamemodify(getcwd(),':~')}",
+      "filename",
+    },
+    lualine_z = {
+      { require("codecompanionstatus") },
+    }
+  }
+})
+
+-- nvim-scrollbar
+local colors = require("dracula").colors()
+require("scrollbar").setup({
+  handle = {
+    color = colors.visual,
+  },
+  marks = {
+    Search = { color = colors.yellow },
+    Error = { color = colors.red },
+    Warn = { color = colors.orange },
+    Info = { color = colors.green },
+    Hint = { color = colors.cyan },
+    Misc = { color = colors.purple },
+  }
+})
 
 -- bufferline.nvim
 vim.opt.termguicolors = true
-require("bufferline").setup()
+require("bufferline").setup({
+  options = {
+    offsets = {
+--       {
+--         filetype = "nerdtree",
+--         text = "%{fnamemodify(getcwd(),':~')}",
+--         text_align = "left",
+--       },
+      {
+        filetype = "vista_kind",
+        text = "structure",
+      },
+      {
+        filetype = "codecompanion",
+        text = "🤖 Ollama 🤖",
+      }
+    },
+  }
+})
 
 -- vim-gitgutter
 vim.g.gitgutter_preview_win_floating = 1

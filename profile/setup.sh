@@ -16,6 +16,7 @@ ln -fnsv "${DIR}"/nvim/lua/tig.lua ~/.config/nvim/lua/tig.lua
 ln -fnsv "${DIR}"/nvim/lua/tools.lua ~/.config/nvim/lua/tools.lua
 ln -fnsv "${DIR}"/nvim/lua/lsps.lua ~/.config/nvim/lua/lsps.lua
 ln -fnsv "${DIR}"/nvim/lua/lspkeymap.lua ~/.config/nvim/lua/lspkeymap.lua
+ln -fnsv "${DIR}"/nvim/lua/codecompanionstatus.lua ~/.config/nvim/lua/codecompanionstatus.lua
 ln -fnsv "${DIR}"/nvim/lua/custom/coc.lua ~/.config/nvim/lua/custom/coc.lua
 ln -fnsv "${DIR}"/nvim/lua/custom/requirements.lua ~/.config/nvim/lua/custom/requirements.lua
 ln -fnsv "${DIR}"/nvim/lua/custom/ruby.lua ~/.config/nvim/lua/custom/ruby.lua
@@ -27,4 +28,7 @@ ln -fnsv "${DIR}"/.bash_profile ~/.bash_profile
 mkdir -p ~/.znap/plugins
 ln -fnsv "${DIR}"/.zshrc ~/.zshrc
 
-ln -fnsv "${DIR}"/.hyper.js ~/.hyper.js
+ln -fnsv "${DIR}"/tmux/tmux.conf ~/.config/tmux/tmux.conf
+
+mkdir -p ~/.config/wezterm
+ln -fnsv "${DIR}"/wezterm/wezterm.lua ~/.config/wezterm/wezterm.lua
