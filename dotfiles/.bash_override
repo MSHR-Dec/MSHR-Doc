@@ -1,0 +1,52 @@
+_zfz() {
+  cd $(z | awk '{ print $2 }' | fzf --reverse)
+}
+
+_zhz() {
+  ssh $(grep -E "^Host " ~/.ssh/config | grep -v "*" | sed -e 's/Host[ ]*//g' | fzf)
+}
+
+BREW_DIR=
+if [ "$(uname)" == "Darwin" ]; then
+  BREW_DIR="/opt/homebrew"
+  alias ls='gls --color'
+elif [ "$(uname)" == "Linux" ]; then
+  BREW_DIR="/home/linuxbrew/.linuxbrew"
+fi
+
+source ${BREW_DIR}/etc/bash_completion.d/git-prompt.sh
+source ${BREW_DIR}/etc/bash_completion.d/git-completion.bash
+source ${BREW_DIR}/etc/profile.d/z.sh
+
+GIT_PS1_SHOWDIRTYSTATE=true
+PS1='\[\033[0m\]:\[\033[35m\]\w \[\033[31m\]$(__git_ps1)\n\[\033[0m\]$ '
+
+alias reload='exec $SHELL -l'
+alias lzd='lazydocker'
+alias k='kubectl'
+alias v='nvim'
+alias zz='_zfz'
+alias zh='_zhz'
+
+export PATH="/usr/local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export GOPATH="$HOME/go"
+export PATH="$GOPATH/bin:$PATH"
+
+eval "$(${BREW_DIR}/bin/brew shellenv)"
+eval "$(direnv hook bash)"
+eval "$(fzf --bash)"
+
+if type brew &>/dev/null
+then
+  HOMEBREW_PREFIX="$(brew --prefix)"
+  if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]
+  then
+    source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+  else
+    for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*
+    do
+      [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
+    done
+  fi
+fi
