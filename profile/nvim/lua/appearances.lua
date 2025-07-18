@@ -17,7 +17,7 @@ require"nvim-treesitter.configs".setup {
 -- nerdtree
 vim.g.NERDTreeShowLineNumbers = 1
 vim.g.NERDTreeShowHidden = 1
-vim.g.NERDTreeWinSize = vim.o.columns / 4
+vim.g.NERDTreeWinSize = 40
 vim.keymap.set("n", "<c-b>", "<cmd>NERDTreeToggle<cr>", { remap = true })
 
 -- lualine.nvim
@@ -25,7 +25,7 @@ require("lualine").setup({
   sections = {
     lualine_c = {
       "%{fnamemodify(getcwd(),':~')}",
-      "filename",
+      "%f",
     },
     lualine_z = {
       { require("codecompanionstatus") },
