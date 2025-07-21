@@ -24,6 +24,7 @@ ln -fnsv "${DIR}"/nvim/lua/custom/go.lua ~/.config/nvim/lua/custom/go.lua
 
 ln -fnsv "${DIR}"/.vimrc ~/.vimrc
 ln -fnsv "${DIR}"/.bash_profile ~/.bash_profile
+ln -fnsv "${DIR}"/.hyper.js ~/.hyper.js
 
 mkdir -p ~/.znap/plugins
 ln -fnsv "${DIR}"/.zshrc ~/.zshrc
