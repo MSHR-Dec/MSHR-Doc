@@ -25,7 +25,7 @@ require("lualine").setup({
   sections = {
     lualine_c = {
       "%{fnamemodify(getcwd(),':~')}",
-      "filename",
+      "%f",
     },
     lualine_z = {
       { require("codecompanionstatus") },
@@ -65,7 +65,7 @@ require("bufferline").setup({
       },
       {
         filetype = "codecompanion",
-        text = "🤖 Ollama 🤖",
+        text = "🤖 CodeCompanion 🤖",
       }
     },
   }
