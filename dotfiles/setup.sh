@@ -2,9 +2,9 @@
 
 DIR=$(cd $(dirname $0); pwd)
 
-CUSTOM="${DIR}"/nvim/lua/custom/requirements.lua
-if [ ! -e "${CUSTOM}" ]; then
-  cp "${CUSTOM}".template "${CUSTOM}"
+CUSTOM_NVIM="${DIR}"/nvim/lua/custom/requirements.lua
+if [ ! -e "${CUSTOM_NVIM}" ]; then
+  cp "${CUSTOM_NVIM}".template "${CUSTOM_NVIM}"
 fi
 
 mkdir -p ~/.config/nvim/lua/custom
@@ -32,3 +32,12 @@ fi
 
 mkdir -p ~/.config/tmux
 ln -fnsv "${DIR}"/tmux/tmux.conf ~/.config/tmux/tmux.conf
+
+CUSTOM_WEZTERM="${DIR}"/wezterm/custom.lua
+if [ ! -e "${CUSTOM_WEZTERM}" ]; then
+  cp "${CUSTOM_WEZTERM}".template "${CUSTOM_WEZTERM}"
+fi
+
+mkdir -p ~/.config/wezterm
+ln -fnsv "${DIR}"/wezterm/wezterm.lua ~/.config/wezterm/wezterm.lua
+ln -fnsv "${CUSTOM_WEZTERM}" ~/.config/wezterm/custom.lua

@@ -19,6 +19,7 @@ vim.g.NERDTreeShowLineNumbers = 1
 vim.g.NERDTreeShowHidden = 1
 vim.g.NERDTreeWinSize = 35
 vim.keymap.set("n", "<c-b>", "<cmd>NERDTreeToggle<cr>", { remap = true })
+vim.api.nvim_set_hl(0, "NERDTreeDir", { ctermfg = 0, fg = "#C7ADFF" })
 
 -- lualine.nvim
 require("lualine").setup({
