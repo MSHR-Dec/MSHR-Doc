@@ -32,3 +32,6 @@ fi
 
 mkdir -p ~/.config/tmux
 ln -fnsv "${DIR}"/tmux/tmux.conf ~/.config/tmux/tmux.conf
+
+mkdir -p ~/.config/wezterm
+ln -fnsv "${DIR}"/wezterm/wezterm.lua ~/.config/wezterm/wezterm.lua
