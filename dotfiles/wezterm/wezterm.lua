@@ -8,11 +8,11 @@ local config = wezterm.config_builder()
 use_ime = true
 
 config.color_scheme = 'Dracula+'
-config.font =
-  wezterm.font('JetBrains Mono')
+config.color_schemes = { ['Dracula+'] = { background = '#2B2B2B' }}
+config.font = wezterm.font('JetBrains Mono')
 config.font_size = 10.0
 config.window_frame = {
-  font = wezterm.font('JetBrains Mono', { weight = 'Bold', italic = true }),
+  font = wezterm.font('JetBrains Mono', { italic = true }),
   active_titlebar_bg = '#2B2B2B',
 }
 
