@@ -76,6 +76,13 @@ config.keys = {
       end),
     },
   },
+  {
+    key = 'w',
+    mods = 'LEADER',
+    action = act.ShowLauncherArgs {
+      flags = 'FUZZY|WORKSPACES',
+    },
+  },
   { key = 'n', mods = 'LEADER', action = act.SwitchWorkspaceRelative(1) },
   { key = 'p', mods = 'LEADER', action = act.SwitchWorkspaceRelative(-1) },
 }
