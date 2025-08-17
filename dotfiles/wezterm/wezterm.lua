@@ -24,6 +24,12 @@ config.window_frame = {
 
 config.tab_bar_at_bottom = true
 
+local act = wezterm.action
+
+wezterm.on('update-right-status', function(window, pane)
+  window:set_right_status(window:active_workspace())
+end)
+
 config.leader = { key = 'q', mods = 'CTRL' }
 config.keys = {
   {
@@ -42,16 +48,6 @@ config.keys = {
   { key = "j", mods = "LEADER", action = wezterm.action.ActivatePaneDirection("Down") },
   { key = 'c', mods = 'ALT', action = wezterm.action.CopyTo 'Clipboard' },
   { key = 'v', mods = 'ALT', action = wezterm.action.PasteFrom 'Clipboard' },
-}
-
-local act = wezterm.action
-
-wezterm.on('update-right-status', function(window, pane)
-  window:set_right_status(window:active_workspace())
-end)
-
-config.keys = {
-  -- Prompt for a name to use for a new workspace and switch to it.
   {
     key = 'c',
     mods = 'LEADER',
@@ -62,9 +58,6 @@ config.keys = {
         { Text = 'Enter name for new workspace' },
       },
       action = wezterm.action_callback(function(window, pane, line)
-        -- line will be `nil` if they hit escape without entering anything
-        -- An empty string if they just hit enter
-        -- Or the actual line of text they wrote
         if line then
           window:perform_action(
             act.SwitchToWorkspace {
