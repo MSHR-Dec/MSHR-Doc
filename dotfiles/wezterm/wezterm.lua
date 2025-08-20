@@ -23,6 +23,7 @@ config.window_frame = {
 }
 
 config.tab_bar_at_bottom = true
+config.status_update_interval = 50000
 
 local act = wezterm.action
 
@@ -79,6 +80,14 @@ config.keys = {
   { key = 'n', mods = 'LEADER', action = act.SwitchWorkspaceRelative(1) },
   { key = 'p', mods = 'LEADER', action = act.SwitchWorkspaceRelative(-1) },
 }
+
+local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
+tabline.setup({
+  sections = {
+    tabline_y = {'datetime' },
+    tabline_z = { },
+  },
+})
 
 local custom = require("/custom")
 merge_config(config, custom)
