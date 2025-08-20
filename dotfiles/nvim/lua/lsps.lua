@@ -103,8 +103,8 @@ require("lspconfig").terraformls.setup({
 vim.g.terraform_fmt_on_save = 1
 
 -- vista.vim
--- vim.g.vista_default_executive = "nvim_lsp"
--- vim.keymap.set("n", "<Leader>vt", "<cmd>Vista!!<cr>")
+vim.g.vista_default_executive = "nvim_lsp"
+vim.keymap.set("n", "<Leader>vt", "<cmd>Vista!!<cr>")
 
 -- render-markdown.nvim
 -- require("render-markdown").setup({

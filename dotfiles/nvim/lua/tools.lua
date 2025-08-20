@@ -28,7 +28,10 @@ vim.keymap.set("n", "<Leader>mn", "<cmd>MemoNew<cr>", { noremap = true })
 vim.keymap.set("n", "<Leader>ml", "<cmd>MemoList<cr>", { noremap = true })
 vim.keymap.set("n", "<Leader>mg", "<cmd>MemoGrep<cr>", { noremap = true })
 
--- vim-easymotion
-vim.keymap.set("n", "<Leader>es", "<Plug>(easymotion-overwin-f2)")
-vim.keymap.set("n", "<Leader>ej", "<Plug>(easymotion-j)")
-vim.keymap.set("n", "<Leader>ek", "<Plug>(easymotion-k)")
+-- search-replace
+require("search-replace").setup({
+  default_replace_single_buffer_options = "gcI",
+  default_replace_multi_buffer_options = "egcI",
+})
+vim.api.nvim_set_keymap("n", "<leader>r", "<CMD>SearchReplaceSingleBufferOpen<CR>", {})
+vim.api.nvim_set_keymap("v", "<C-r>", "<CMD>SearchReplaceSingleBufferVisualSelection<CR>", {})
