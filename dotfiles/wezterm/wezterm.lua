@@ -23,7 +23,6 @@ config.window_frame = {
 }
 
 config.tab_bar_at_bottom = true
-config.status_update_interval = 50000
 
 local act = wezterm.action
 
@@ -79,15 +78,26 @@ config.keys = {
   },
   { key = 'n', mods = 'LEADER', action = act.SwitchWorkspaceRelative(1) },
   { key = 'p', mods = 'LEADER', action = act.SwitchWorkspaceRelative(-1) },
+  { key = '[', mods = 'LEADER', action = wezterm.action.ActivateCopyMode },
 }
 
-local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
-tabline.setup({
-  sections = {
-    tabline_y = {'datetime' },
-    tabline_z = { },
-  },
-})
+wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
+  local background = "#696969"
+  local foreground = "#FFFFFF"
+
+  if tab.is_active then
+    background = "#8b008b"
+    foreground = "#FFFFFF"
+  end
+
+  local title = "   " .. wezterm.truncate_right(tab.active_pane.title, max_width - 1) .. "   "
+
+  return {
+    { Background = { Color = background } },
+    { Foreground = { Color = foreground } },
+    { Text = title },
+  }
+end)
 
 local custom = require("/custom")
 merge_config(config, custom)
