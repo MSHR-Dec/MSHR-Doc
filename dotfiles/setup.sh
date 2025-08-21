@@ -41,3 +41,7 @@ fi
 mkdir -p ~/.config/wezterm
 ln -fnsv "${DIR}"/wezterm/wezterm.lua ~/.config/wezterm/wezterm.lua
 ln -fnsv "${CUSTOM_WEZTERM}" ~/.config/wezterm/custom.lua
+
+mkdir -p ~/.config/zed
+ln -fnsv "${DIR}"/zed/settings.json ~/.config/zed/settings.json
+ln -fnsv "${DIR}"/zed/keymap.json ~/.config/zed/keymap.json
