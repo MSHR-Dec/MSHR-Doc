@@ -61,6 +61,7 @@
       "ctrl-shift-l": "workspace::ActivatePaneRight",
       "ctrl-shift-k": "workspace::ActivatePaneUp",
       "ctrl-shift-j": "workspace::ActivatePaneDown",
+      "ctrl-t": "terminal_panel::ToggleFocus",
     },
   },
 ]
