@@ -30,12 +30,15 @@
     "light": "One Light",
     "dark": "New Darcula"
   },
+  "experimental.theme_overrides": {
+   "terminal.background": "#2b2b2d",
+  },
   "inlay_hints": {
     "enabled": true,
     "show_type_hints": true,
     "show_parameter_hints": true,
     "show_other_hints": true,
     "edit_debounce_ms": 700,
-    "scroll_debounce_ms": 50
+    "scroll_debounce_ms": 50,
   }
 }

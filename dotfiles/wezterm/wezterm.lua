@@ -13,8 +13,7 @@ end
 -- This is where you actually apply your config choices
 use_ime = true
 
-config.color_scheme = 'Dracula+'
-config.color_schemes = { ['Dracula+'] = { background = '#2B2B2B' }}
+config.color_scheme = 'JetBrains Darcula'
 config.font = wezterm.font('JetBrains Mono')
 config.font_size = 12.0
 config.window_frame = {
