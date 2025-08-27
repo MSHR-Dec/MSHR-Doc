@@ -1,3 +1,4 @@
 -- require('custom.coc')
 -- require('custom.ruby')
 -- require('custom.go')
+-- require('custom.custom')

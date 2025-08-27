@@ -2,16 +2,19 @@
 
 DIR=$(cd $(dirname $0); pwd)
 
-CUSTOM_NVIM="${DIR}"/nvim/lua/custom/requirements.lua
-if [ ! -e "${CUSTOM_NVIM}" ]; then
-  cp "${CUSTOM_NVIM}".template "${CUSTOM_NVIM}"
+CUSTOM_REQUIREMENT="${DIR}"/nvim/lua/custom/requirements.lua
+CUSTOM_LUA="${DIR}"/nvim/lua/custom/custom.lua
+if [ ! -e "${CUSTOM_REQUIREMENT}" ]; then
+  cp "${CUSTOM_REQUIREMENT}".template "${CUSTOM_REQUIREMENT}"
+fi
+if [ ! -e "${CUSTOM_LUA}" ]; then
+  cp "${CUSTOM_LUA}".template "${CUSTOM_LUA}"
 fi
 
 mkdir -p ~/.config/nvim/lua/custom
 ln -fnsv "${DIR}"/nvim/init.lua ~/.config/nvim/init.lua
 ln -fnsv "${DIR}"/nvim/lua/appearances.lua ~/.config/nvim/lua/appearances.lua
 ln -fnsv "${DIR}"/nvim/lua/common.lua ~/.config/nvim/lua/common.lua
-ln -fnsv "${DIR}"/nvim/lua/colorscheme.lua ~/.config/nvim/lua/colorscheme.lua
 ln -fnsv "${DIR}"/nvim/lua/plugins.lua ~/.config/nvim/lua/plugins.lua
 ln -fnsv "${DIR}"/nvim/lua/tig.lua ~/.config/nvim/lua/tig.lua
 ln -fnsv "${DIR}"/nvim/lua/tools.lua ~/.config/nvim/lua/tools.lua
@@ -22,6 +25,7 @@ ln -fnsv "${DIR}"/nvim/lua/custom/coc.lua ~/.config/nvim/lua/custom/coc.lua
 ln -fnsv "${DIR}"/nvim/lua/custom/requirements.lua ~/.config/nvim/lua/custom/requirements.lua
 ln -fnsv "${DIR}"/nvim/lua/custom/ruby.lua ~/.config/nvim/lua/custom/ruby.lua
 ln -fnsv "${DIR}"/nvim/lua/custom/go.lua ~/.config/nvim/lua/custom/go.lua
+ln -fnsv "${DIR}"/nvim/lua/custom/custom.lua ~/.config/nvim/lua/custom/custom.lua
 
 ln -fnsv "${DIR}"/.vimrc ~/.vimrc
 ln -fnsv "${DIR}"/.bash_override ~/.bash_override

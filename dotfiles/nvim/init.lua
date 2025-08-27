@@ -1,7 +1,6 @@
 require('common')
 require('plugins')
 require('appearances')
-require('colorscheme')
 require('tools')
 require('lsps')
 require('custom.requirements')
