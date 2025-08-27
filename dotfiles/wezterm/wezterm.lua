@@ -11,7 +11,8 @@ function merge_config(config, new_config)
 end
 
 -- This is where you actually apply your config choices
-use_ime = true
+config.use_ime = true
+config.status_update_interval = 50000
 
 config.color_scheme = 'JetBrains Darcula'
 config.font = wezterm.font('JetBrains Mono')
@@ -183,9 +184,51 @@ wezterm.on('update-right-status', function(window, pane)
     table.insert(cells, hostname)
   end
 
-  -- Display current workspace
+  -- Get list of workspaces using wezterm cli
   local active_workspace = window:active_workspace()
-  table.insert(cells, active_workspace)
+  local workspaces = {}
+  local workspace_str = ""
+  
+  -- Run wezterm cli list to get all workspaces
+  local success, stdout, stderr = wezterm.run_child_process({"wezterm", "cli", "list", "--format", "json"})
+  
+  if success then
+    -- Parse JSON output to extract unique workspaces
+    local ok, json_data = pcall(wezterm.json_parse, stdout)
+    if ok and json_data then
+      local unique_workspaces = {}
+      for _, entry in ipairs(json_data) do
+        if entry.workspace then
+          unique_workspaces[entry.workspace] = true
+        end
+      end
+      
+      -- Convert to sorted list
+      for workspace, _ in pairs(unique_workspaces) do
+        table.insert(workspaces, workspace)
+      end
+      table.sort(workspaces)
+      
+      -- Format workspace list with current workspace highlighted
+      local workspace_list = {}
+      for _, ws in ipairs(workspaces) do
+        if ws == active_workspace then
+          table.insert(workspace_list, "[" .. ws .. "]")
+        else
+          table.insert(workspace_list, ws)
+        end
+      end
+      
+      workspace_str = table.concat(workspace_list, " | ")
+    end
+  end
+  
+  -- If we couldn't get the list, just show current workspace
+  if workspace_str == "" then
+    workspace_str = "[" .. active_workspace .. "]"
+  end
+  
+  table.insert(cells, workspace_str)
 
   -- The powerline < symbol
   local LEFT_ARROW = utf8.char(0xe0b3)
