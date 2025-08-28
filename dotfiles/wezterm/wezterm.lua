@@ -188,9 +188,16 @@ wezterm.on('update-right-status', function(window, pane)
   local active_workspace = window:active_workspace()
   local workspaces = {}
   local workspace_str = ""
+
+  -- Determine wezterm path based on OS
+  local wezterm_path = "wezterm"
+  local os_name = io.popen("uname -s"):read("*l")
+  if os_name == "Darwin" then
+    wezterm_path = "/opt/homebrew/bin/wezterm"
+  end
   
   -- Run wezterm cli list to get all workspaces
-  local success, stdout, stderr = wezterm.run_child_process({"wezterm", "cli", "list", "--format", "json"})
+  local success, stdout, stderr = wezterm.run_child_process({wezterm_path, "cli", "list", "--format", "json"})
   
   if success then
     -- Parse JSON output to extract unique workspaces
