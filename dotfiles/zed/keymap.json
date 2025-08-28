@@ -13,6 +13,8 @@
       "space t i": "editor::ToggleInlayHints",
       "ctrl-b": "project_panel::ToggleFocus",
       "space g s": "git_panel::ToggleFocus",
+      "alt-c": "editor::Copy",
+      "alt-v": "editor::Paste",
     },
   },
   {
@@ -58,12 +60,18 @@
       "ctrl-l": "editor::AcceptEditPrediction",
       "tab": "editor::Tab",
       "alt-f": "buffer_search::Deploy",
+      "alt-c": "editor::Copy",
+      "alt-v": "editor::Paste",
     },
   },
   {
     "context": "Terminal",
     "bindings": {
       "ctrl-t": "terminal_panel::ToggleFocus",
+      "ctrl-n": ["terminal::SendKeystroke", "ctrl-n"],
+      "ctrl-p": ["terminal::SendKeystroke", "ctrl-p"],
+      "alt-c": "terminal::Copy",
+      "alt-v": "terminal::Paste",
     },
   },
 ]
