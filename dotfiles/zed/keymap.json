@@ -21,10 +21,10 @@
     "context": "Editor && vim_mode == normal && !VimWaiting && !menu",
     "bindings": {
       "space r": "editor::Rename",
-      "ctrl-h": "workspace::ActivatePaneLeft",
-      "ctrl-l": "workspace::ActivatePaneRight",
-      "ctrl-k": "workspace::ActivatePaneUp",
-      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-q ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-q ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-q ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-q ctrl-j": "workspace::ActivatePaneDown",
       "ctrl-p": "pane::ActivatePreviousItem",
       "ctrl-n": "pane::ActivateNextItem",
       "g d": "editor::GoToDefinition",
@@ -67,6 +67,10 @@
   {
     "context": "Terminal",
     "bindings": {
+      "ctrl-q ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-q ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-q ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-q ctrl-j": "workspace::ActivatePaneDown",
       "ctrl-t": "terminal_panel::ToggleFocus",
       "ctrl-n": ["terminal::SendKeystroke", "ctrl-n"],
       "ctrl-p": ["terminal::SendKeystroke", "ctrl-p"],
@@ -74,4 +78,9 @@
       "alt-v": "terminal::Paste",
     },
   },
+  {
+    "bindings": {
+      "ctrl-q": null
+    }
+  }
 ]
