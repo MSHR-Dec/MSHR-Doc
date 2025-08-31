@@ -79,6 +79,15 @@
     },
   },
   {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-q ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-q ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-q ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-q ctrl-j": "workspace::ActivatePaneDown",
+    },
+  },
+  {
     "bindings": {
       "ctrl-q": null
     }
