@@ -11,7 +11,7 @@
     "edit_prediction_provider": "copilot"
   },
   "terminal": {
-    "dock": "right"
+    "dock": "bottom"
   },
   "agent": {
     "default_profile": "ask",
@@ -44,5 +44,10 @@
     "show_other_hints": true,
     "edit_debounce_ms": 700,
     "scroll_debounce_ms": 50,
-  }
+  },
+  "autosave": {
+    "after_delay": {
+      "milliseconds": 3000,
+    }
+  },
 }
