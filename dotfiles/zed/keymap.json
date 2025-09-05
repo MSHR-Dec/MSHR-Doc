@@ -1,95 +1,59 @@
 [
   {
-    "context": "Editor && (vim_mode == normal || vim_mode == visual) && !VimWaiting && !menu",
+    "context": "Editor",
     "bindings": {
-      "ctrl-r": "buffer_search::DeployReplace",
-      "n": "editor::FindNextMatch",
-      "shift-n": "editor::FindPreviousMatch",
-      "space f i": "file_finder::Toggle",
-      "space f f": "pane::DeploySearch",
-      "space b d": "pane::CloseActiveItem",
-      "g h p": "editor::ToggleSelectedDiffHunks",
-      "space c c": "assistant::ToggleFocus",
-      "space t i": "editor::ToggleInlayHints",
-      "ctrl-b": "project_panel::ToggleFocus",
-      "space g s": "git_panel::ToggleFocus",
-      "alt-c": "editor::Copy",
-      "alt-v": "editor::Paste",
-    },
+      "cmd-d": "editor::DuplicateSelection",
+      "ctrl-g": ["editor::SelectNext", { "replace_newest": false }],
+      "cmd-/": ["editor::ToggleComments", { "advance_downwards": true }],
+      "cmd-shift-up": "editor::MoveLineUp",
+      "cmd-shift-down": "editor::MoveLineDown",
+      "cmd-alt-l": "editor::Format",
+      "ctrl-r": "editor::Rename",
+      "cmd-b": "editor::GoToDefinition",
+      "cmd-shift-b": "editor::GoToTypeDefinition",
+      "cmd-i": "editor::GoToImplementation",
+      "cmd-shift-i": "editor::ToggleInlayHints",
+      "cmd-shift-r": "editor::FindAllReferences"
+    }
   },
   {
-    "context": "Editor && vim_mode == normal && !VimWaiting && !menu",
+    "context": "Editor && mode == full",
     "bindings": {
-      "space r": "editor::Rename",
-      "ctrl-q ctrl-h": "workspace::ActivatePaneLeft",
-      "ctrl-q ctrl-l": "workspace::ActivatePaneRight",
-      "ctrl-q ctrl-k": "workspace::ActivatePaneUp",
-      "ctrl-q ctrl-j": "workspace::ActivatePaneDown",
-      "ctrl-p": "pane::ActivatePreviousItem",
-      "ctrl-n": "pane::ActivateNextItem",
-      "g d": "editor::GoToDefinition",
-      "g D": "editor::GoToDefinitionSplit",
-      "g i": "editor::GoToImplementation",
-      "g I": "editor::GoToImplementationSplit",
-      "g t": "editor::GoToTypeDefinition",
-      "g T": "editor::GoToTypeDefinitionSplit",
-      "g r": "editor::FindAllReferences",
-      "g [": "editor::GoToDiagnostic",
-      "g ]": "editor::GoToPreviousDiagnostic",
-      "ctrl-t": "terminal_panel::ToggleFocus",
-    },
+      "cmd-f12": "outline::Toggle",
+      "cmd-r": ["buffer_search::Deploy", { "replace_enabled": true }],
+      "cmd-shift-o": "file_finder::Toggle",
+      "cmd-l": "go_to_line::Toggle",
+      "alt-enter": "editor::ToggleCodeActions"
+    }
   },
   {
-    "context": "Editor && vim_mode == visual && !VimWaiting && !menu",
+    "context": "BufferSearchBar",
     "bindings": {
-      "shift-k": "editor::MoveLineUp",
-      "shift-j": "editor::MoveLineDown",
-    },
+      "shift-enter": "search::SelectPreviousMatch"
+    }
   },
   {
-    "context": "Editor && vim_mode == insert && !menu",
+    "context": "ProjectPanel",
     "bindings": {
-      "ctrl-n": "editor::MoveDown",
-      "ctrl-p": "editor::MoveUp",
-      "ctrl-f": "editor::MoveRight",
-      "ctrl-b": "editor::MoveLeft",
-      "ctrl-a": "editor::MoveToBeginningOfLine",
-      "ctrl-e": "editor::MoveToEndOfLine",
-      "ctrl-d": "editor::Delete",
-      "ctrl-h": "editor::Backspace",
-      "ctrl-l": "editor::AcceptEditPrediction",
-      "tab": "editor::Tab",
-      "alt-f": "buffer_search::Deploy",
-      "alt-c": "editor::Copy",
-      "alt-v": "editor::Paste",
-    },
+      "enter": "project_panel::Open",
+      "ctrl-r": "project_panel::Rename"
+    }
   },
   {
     "context": "Terminal",
     "bindings": {
-      "ctrl-q ctrl-h": "workspace::ActivatePaneLeft",
-      "ctrl-q ctrl-l": "workspace::ActivatePaneRight",
-      "ctrl-q ctrl-k": "workspace::ActivatePaneUp",
-      "ctrl-q ctrl-j": "workspace::ActivatePaneDown",
-      "ctrl-t": "terminal_panel::ToggleFocus",
-      "ctrl-n": ["terminal::SendKeystroke", "ctrl-n"],
-      "ctrl-p": ["terminal::SendKeystroke", "ctrl-p"],
-      "alt-c": "terminal::Copy",
-      "alt-v": "terminal::Paste",
-    },
+      "cmd-t": "workspace::NewTerminal"
+    }
   },
   {
-    "context": "Workspace",
     "bindings": {
       "ctrl-q ctrl-h": "workspace::ActivatePaneLeft",
       "ctrl-q ctrl-l": "workspace::ActivatePaneRight",
       "ctrl-q ctrl-k": "workspace::ActivatePaneUp",
       "ctrl-q ctrl-j": "workspace::ActivatePaneDown",
-    },
-  },
-  {
-    "bindings": {
-      "ctrl-q": null
+      "cmd-k": "git_panel::ToggleFocus",
+      "cmd-shift-k": "project_panel::ToggleFocus",
+      "ctrl-t": "terminal_panel::ToggleFocus"
     }
   }
 ]
