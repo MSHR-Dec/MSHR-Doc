@@ -13,7 +13,9 @@
       "cmd-shift-b": "editor::GoToTypeDefinition",
       "cmd-i": "editor::GoToImplementation",
       "cmd-shift-i": "editor::ToggleInlayHints",
-      "cmd-shift-r": "editor::FindAllReferences"
+      "cmd-shift-r": "editor::FindAllReferences",
+      "ctrl-q ctrl-p": "pane::ActivatePreviousItem",
+      "ctrl-q ctrl-n": "pane::ActivateNextItem"
     }
   },
   {
