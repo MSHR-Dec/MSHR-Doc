@@ -14,6 +14,9 @@
       "cmd-i": "editor::GoToImplementation",
       "cmd-shift-i": "editor::ToggleInlayHints",
       "cmd-shift-r": "editor::FindAllReferences",
+      "ctrl-l": "editor::AcceptPartialEditPrediction",
+      "cmd-ctrl-l": "editor::AcceptEditPrediction",
+      "tab": "editor::Tab",
       "ctrl-q ctrl-p": "pane::ActivatePreviousItem",
       "ctrl-q ctrl-n": "pane::ActivateNextItem"
     }
