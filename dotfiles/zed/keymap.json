@@ -17,6 +17,7 @@
       "ctrl-l": "editor::AcceptPartialEditPrediction",
       "cmd-ctrl-l": "editor::AcceptEditPrediction",
       "tab": "editor::Tab",
+      "ctrl-q ctrl-g": "editor::ToggleSelectedDiffHunks",
       "ctrl-q ctrl-p": "pane::ActivatePreviousItem",
       "ctrl-q ctrl-n": "pane::ActivateNextItem"
     }
