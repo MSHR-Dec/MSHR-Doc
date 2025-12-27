@@ -87,11 +87,12 @@ cmp.setup.cmdline(":", {
 })
 
 -- lspconfig
+local lspconfig = vim.lsp.config
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-require("lspconfig").clangd.setup {
+lspconfig.clangd = {
   capabilities = capabilities,
 }
-require("lspconfig").terraformls.setup({
+lspconfig.terraformls = ({
   capabilities = vim.lsp.protocol.make_client_capabilities(),
   on_attach = function(client, bufnr)
     require("lspkeymap").on_attach(client, bufnr)

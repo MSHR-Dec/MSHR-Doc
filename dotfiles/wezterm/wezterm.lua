@@ -19,10 +19,13 @@ config.font = wezterm.font('JetBrains Mono')
 config.font_size = 12.0
 config.window_frame = {
   font = wezterm.font('JetBrains Mono', { italic = true }),
-  active_titlebar_bg = '#2B2B2B',
+  font_size = 10.0,
+  active_titlebar_bg = '#47266e',
 }
 
 config.tab_bar_at_bottom = true
+
+config.window_close_confirmation = 'NeverPrompt'
 
 local act = wezterm.action
 

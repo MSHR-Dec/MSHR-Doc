@@ -9,9 +9,23 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 ```
 ```
 brew install anyenv bash coreutils direnv fd font-jetbrains-mono-nerd-font fzf kind lazydocker git neovim peco ripgrep tig tree z
-brew install --cask docker google-chrome hyper intellij-idea raycast slack vivaldi
+brew install --cask docker google-chrome hyper intellij-idea raycast slack vivaldi wezterm zed
 anyenv init
 anyenv install --init
+```
+
+## Manjaro
+```
+sudo pacman -Syyu
+sudo pacman -S coreutils direnv fd fzf neovim peco ripgrep tig tree tree-sitter-cli ttf-firacode-nerd yay
+git clone https://github.com/rupa/z ~/.config/z
+mkdir -p ~/.config/git
+wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O .config/git/git-completion.bash
+wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh -O .config/git/git-prompt.sh
+sudo usermod -a -G input $USER
+echo 'KERNEL=="uinput", GROUP="input", TAG+="uaccess"' | sudo tee /etc/udev/rules.d/99-input.rules
+systemctl --user start xremap.service
+systemctl --user enable xremap.service
 ```
 
 ## Ubuntu

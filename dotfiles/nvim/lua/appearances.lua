@@ -1,13 +1,13 @@
 -- theme
 require("dracula").setup({
   colors = {
-    bg = "#2B2B2B",
+    bg = "#1b2738",
   }
 })
 vim.cmd.colorscheme('dracula')
 
 -- nvim-treesitter
-require"nvim-treesitter.configs".setup {
+require"nvim-treesitter".setup {
   ensure_installed = { "go", "hcl", "lua", "vim", "vimdoc", "json", "yaml", "markdown", "markdown_inline" },
   highlight = {
     enable = true,
