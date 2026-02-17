@@ -17,9 +17,9 @@
       "ctrl-l": "editor::AcceptPartialEditPrediction",
       "cmd-ctrl-l": "editor::AcceptEditPrediction",
       "tab": "editor::Tab",
-      "ctrl-q ctrl-g": "editor::ToggleSelectedDiffHunks",
-      "ctrl-q ctrl-p": "pane::ActivatePreviousItem",
-      "ctrl-q ctrl-n": "pane::ActivateNextItem"
+      "cmd-shift-g": "editor::ToggleSelectedDiffHunks",
+      "cmd-shift-p": "pane::ActivatePreviousItem",
+      "cmd-shift-n": "pane::ActivateNextItem"
     }
   },
   {
@@ -53,10 +53,11 @@
   },
   {
     "bindings": {
-      "ctrl-q ctrl-h": "workspace::ActivatePaneLeft",
-      "ctrl-q ctrl-l": "workspace::ActivatePaneRight",
-      "ctrl-q ctrl-k": "workspace::ActivatePaneUp",
-      "ctrl-q ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-q": ["workspace::SendKeystrokes", "ctrl-q"],
+      "ctrl-left": "workspace::ActivatePaneLeft",
+      "ctrl-right": "workspace::ActivatePaneRight",
+      "ctrl-up": "workspace::ActivatePaneUp",
+      "ctrl-down": "workspace::ActivatePaneDown",
       "cmd-k": "git_panel::ToggleFocus",
       "cmd-shift-k": "project_panel::ToggleFocus",
       "ctrl-t": "terminal_panel::ToggleFocus"

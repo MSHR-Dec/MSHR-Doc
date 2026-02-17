@@ -7,12 +7,18 @@ require("dracula").setup({
 vim.cmd.colorscheme('dracula')
 
 -- nvim-treesitter
-require"nvim-treesitter".setup {
-  ensure_installed = { "go", "hcl", "lua", "vim", "vimdoc", "json", "yaml", "markdown", "markdown_inline" },
+local languages = { "go", "hcl", "lua", "vim", "vimdoc", "json", "yaml", "markdown", "markdown_inline" }
+require("nvim-treesitter").setup({
+  ensure_installed = languages,
   highlight = {
     enable = true,
   },
-}
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = languages,
+  callback = function() vim.treesitter.start() end,
+})
 
 -- nerdtree
 vim.g.NERDTreeShowLineNumbers = 1

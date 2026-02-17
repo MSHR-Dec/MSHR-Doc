@@ -13,6 +13,7 @@ keymap:
       C-h: backspace
 
       Super-a: C-a
+      Super-s: C-s
       Super-z: C-z
       Super-x: C-x
       Super-c: C-c

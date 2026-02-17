@@ -87,18 +87,19 @@ cmp.setup.cmdline(":", {
 })
 
 -- lspconfig
-local lspconfig = vim.lsp.config
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-lspconfig.clangd = {
+vim.lsp.config("clangd", {
   capabilities = capabilities,
-}
-lspconfig.terraformls = ({
+})
+vim.lsp.config("terraformls", {
   capabilities = vim.lsp.protocol.make_client_capabilities(),
   on_attach = function(client, bufnr)
     require("lspkeymap").on_attach(client, bufnr)
     client.server_capabilities.semanticTokensProvider = nil
   end,
 })
+vim.lsp.enable("clangd")
+vim.lsp.enable("terraformls")
 
 -- vim-terraform
 vim.g.terraform_fmt_on_save = 1
