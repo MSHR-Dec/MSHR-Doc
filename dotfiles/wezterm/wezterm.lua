@@ -67,6 +67,7 @@ config.keys = {
 	{ key = "l", mods = "LEADER|CTRL", action = wezterm.action.ActivatePaneDirection("Right") },
 	{ key = "k", mods = "LEADER|CTRL", action = wezterm.action.ActivatePaneDirection("Up") },
 	{ key = "j", mods = "LEADER|CTRL", action = wezterm.action.ActivatePaneDirection("Down") },
+	{ key = "r", mods = "LEADER|CTRL", action = act.ActivateKeyTable({ name = "resize_pane", one_shot = false }) },
 	{ key = "z", mods = "LEADER", action = wezterm.action.TogglePaneZoomState },
 	{ key = "f", mods = "LEADER", action = wezterm.action.QuickSelect },
 	{ key = "c", mods = "ALT", action = wezterm.action.CopyTo("Clipboard") },
@@ -111,6 +112,16 @@ config.keys = {
 		key = "o",
 		mods = "LEADER",
 		action = spawn_overlay_pane(),
+	},
+}
+
+config.key_tables = {
+	resize_pane = {
+		{ key = "h", action = act.AdjustPaneSize({ "Left", 5 }) },
+		{ key = "l", action = act.AdjustPaneSize({ "Right", 5 }) },
+		{ key = "k", action = act.AdjustPaneSize({ "Up", 5 }) },
+		{ key = "j", action = act.AdjustPaneSize({ "Down", 5 }) },
+		{ key = "Enter", action = "PopKeyTable" },
 	},
 }
 
