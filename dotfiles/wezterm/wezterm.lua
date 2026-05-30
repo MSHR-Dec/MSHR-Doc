@@ -12,7 +12,7 @@ end
 
 -- This is where you actually apply your config choices
 config.use_ime = true
-macos_forward_to_ime_modifier_mask = "SHIFT|CTRL"
+config.macos_forward_to_ime_modifier_mask = "SHIFT|CTRL"
 config.status_update_interval = 50000
 
 config.color_scheme = "JetBrains Darcula"
@@ -23,17 +23,33 @@ config.window_frame = {
 	active_titlebar_bg = "#47266e",
 }
 
+config.inactive_pane_hsb = {
+	saturation = 0.7,
+	brightness = 0.5,
+}
+
 config.tab_bar_at_bottom = true
 config.enable_scroll_bar = true
 config.window_close_confirmation = "NeverPrompt"
-
-config.window_close_confirmation = "NeverPrompt"
+config.audible_bell = "Disabled"
+config.window_background_opacity = 0.9
 
 local act = wezterm.action
 
 wezterm.on("update-right-status", function(window, pane)
 	window:set_right_status(window:active_workspace())
 end)
+
+-- Helper function to run a command in an overlay pane
+local function spawn_overlay_pane()
+	return wezterm.action_callback(function(window, pane)
+		local new_pane = pane:split({
+			direction = "Bottom",
+			args = { "/opt/homebrew/bin/bash", "--login" },
+		})
+		window:perform_action(act.TogglePaneZoomState, new_pane)
+	end)
+end
 
 config.leader = { key = "q", mods = "CTRL" }
 config.keys = {
@@ -90,6 +106,11 @@ config.keys = {
 		key = "t",
 		mods = "ALT",
 		action = act.SpawnTab("CurrentPaneDomain"),
+	},
+	{
+		key = "o",
+		mods = "LEADER",
+		action = spawn_overlay_pane(),
 	},
 }
 
@@ -213,7 +234,8 @@ wezterm.on("update-right-status", function(window, pane)
 			local workspace_min_window = {}
 			for _, entry in ipairs(json_data) do
 				if entry.workspace and entry.window_id ~= nil then
-					if workspace_min_window[entry.workspace] == nil
+					if
+						workspace_min_window[entry.workspace] == nil
 						or entry.window_id < workspace_min_window[entry.workspace]
 					then
 						workspace_min_window[entry.workspace] = entry.window_id
