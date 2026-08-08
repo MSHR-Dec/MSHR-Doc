@@ -18,6 +18,7 @@ anyenv install --init
 ```
 sudo pacman -Syyu
 sudo pacman -S coreutils direnv fd fzf neovim peco ripgrep tig tree tree-sitter-cli ttf-firacode-nerd wl-clipboard yay
+yay -S claude-code xremap-kde-bin
 git clone https://github.com/rupa/z ~/.config/z
 mkdir -p ~/.config/git
 wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O .config/git/git-completion.bash

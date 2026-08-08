@@ -24,8 +24,16 @@ keymap:
 
       C-k: F7
       C-l: F8
+
   - name: quit
     application:
       not: [org.wezfurlong.wezterm, dev.zed.Zed]
     remap:
       Super-q: C-q
+
+modmap:
+  - name: intellij
+    application:
+      only: jetbrains-idea
+    remap:
+      Super_L: Alt_L
