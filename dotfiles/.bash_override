@@ -10,10 +10,10 @@ if type brew &>/dev/null; then
   alias ls='gls --color'
   HOMEBREW_PREFIX="$(brew --prefix)"
 
-  source ${BREW_DIR}/etc/bash_completion.d/git-completion.bash
-  source ${BREW_DIR}/etc/profile.d/z.sh
-  source ${BREW_DIR}/etc/bash_completion.d/git-prompt.sh
-  eval "$(${BREW_DIR}/bin/brew shellenv)"
+  source ${HOMEBREW_PREFIX}/etc/bash_completion.d/git-completion.bash
+  source ${HOMEBREW_PREFIX}/etc/profile.d/z.sh
+  source ${HOMEBREW_PREFIX}/etc/bash_completion.d/git-prompt.sh
+  eval "$(${HOMEBREW_PREFIX}/bin/brew shellenv)"
   if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
     source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
   else
@@ -28,8 +28,22 @@ else
   source ~/.config/z/z.sh
 fi
 
+_timer_start() {
+  _cmd_timer=${_cmd_timer:-$SECONDS}
+}
+
+_timer_stop() {
+  local elapsed=$(( SECONDS - ${_cmd_timer:-$SECONDS} ))
+  _cmd_elapsed=""
+  (( elapsed > 0 )) && _cmd_elapsed=" [${elapsed}s]"
+  unset _cmd_timer
+}
+
+trap '_timer_start' DEBUG
+PROMPT_COMMAND='_timer_stop'
+
 GIT_PS1_SHOWDIRTYSTATE=true
-PS1='\[\033[0m\]:\[\033[35m\]\w \[\033[31m\]$(__git_ps1)\n\[\033[0m\]$ '
+PS1='\[\033[0m\]:\[\033[35m\]\w \[\033[31m\]$(__git_ps1)\[\033[33m\]${_cmd_elapsed}\[\033[36m\] \t\n\[\033[0m\]$ '
 
 alias reload='exec $SHELL -l'
 alias lzd='lazydocker'
