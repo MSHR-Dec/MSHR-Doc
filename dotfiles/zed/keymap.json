@@ -14,12 +14,12 @@
       "cmd-i": "editor::GoToImplementation",
       "cmd-shift-i": "editor::ToggleInlayHints",
       "cmd-shift-r": "editor::FindAllReferences",
-      "ctrl-l": "editor::AcceptPartialEditPrediction",
+      "ctrl-l": "editor::AcceptNextWordEditPrediction",
       "cmd-ctrl-l": "editor::AcceptEditPrediction",
       "tab": "editor::Tab",
       "cmd-shift-g": "editor::ToggleSelectedDiffHunks",
-      "cmd-shift-p": "pane::ActivatePreviousItem",
-      "cmd-shift-n": "pane::ActivateNextItem"
+      // "cmd-shift-p": "pane::ActivatePreviousItem",
+      // "cmd-shift-n": "pane::ActivateNextItem"
     }
   },
   {
@@ -60,7 +60,18 @@
       "ctrl-down": "workspace::ActivatePaneDown",
       "cmd-k": "git_panel::ToggleFocus",
       "cmd-shift-k": "project_panel::ToggleFocus",
-      "ctrl-t": "terminal_panel::ToggleFocus"
+      "ctrl-t": "terminal_panel::ToggleFocus",
+      "cmd-shift-n": "multi_workspace::NextThread",
+      "cmd-shift-p": "multi_workspace::PreviousThread",
+      "cmd-ctrl-n": "multi_workspace::NextProject",
+      "cmd-ctrl-p": "multi_workspace::PreviousProject",
+      "ctrl-q 1": [
+        "task::Spawn",
+        {
+          "task_name": "lzd",
+          "reveal_target": "center"
+        }
+      ]
     }
   }
 ]

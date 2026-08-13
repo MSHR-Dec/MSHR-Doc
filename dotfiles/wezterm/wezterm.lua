@@ -143,7 +143,7 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 	}
 end)
 
-wezterm.on("update-right-status", function(window, pane)
+wezterm.on("update-status", function(window, pane)
 	-- Each element holds the text for a cell in a "powerline" style << fade
 	local cells = {}
 
@@ -242,25 +242,18 @@ wezterm.on("update-right-status", function(window, pane)
 		-- Parse JSON output to extract unique workspaces
 		local ok, json_data = pcall(wezterm.json_parse, stdout)
 		if ok and json_data then
-			local workspace_min_window = {}
+			local unique_workspaces = {}
 			for _, entry in ipairs(json_data) do
-				if entry.workspace and entry.window_id ~= nil then
-					if
-						workspace_min_window[entry.workspace] == nil
-						or entry.window_id < workspace_min_window[entry.workspace]
-					then
-						workspace_min_window[entry.workspace] = entry.window_id
-					end
+				if entry.workspace then
+					unique_workspaces[entry.workspace] = true
 				end
 			end
 
-			-- Convert to list sorted by window_id
-			for workspace, _ in pairs(workspace_min_window) do
+			-- Convert to sorted list
+			for workspace, _ in pairs(unique_workspaces) do
 				table.insert(workspaces, workspace)
 			end
-			table.sort(workspaces, function(a, b)
-				return workspace_min_window[a] < workspace_min_window[b]
-			end)
+			table.sort(workspaces)
 
 			-- Format workspace list with current workspace highlighted
 			local workspace_list = {}
