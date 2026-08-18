@@ -7,7 +7,6 @@ return {
         "%{fnamemodify(getcwd(),':~')}",
         "%f",
       }
-      opts.sections.lualine_z = { { require("codecompanionstatus") } }
       return opts
     end,
   },
@@ -17,9 +16,8 @@ return {
     opts = function(_, opts)
       opts.options = opts.options or {}
       opts.options.offsets = {
-        { filetype = "neo-tree",     text = "Files",                  text_align = "left" },
-        { filetype = "vista_kind",   text = "structure" },
-        { filetype = "codecompanion", text = "🤖 CodeCompanion 🤖" },
+        { filetype = "neo-tree",   text = "Files",     text_align = "left" },
+        { filetype = "vista_kind", text = "structure" },
       }
       return opts
     end,

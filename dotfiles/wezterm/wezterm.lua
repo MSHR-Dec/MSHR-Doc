@@ -1,5 +1,7 @@
 -- Pull in the wezterm API
 local wezterm = require("wezterm")
+-- Claude Code の実行状態を監視するヘルパー
+local agent = require("agent")
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
@@ -13,7 +15,8 @@ end
 -- This is where you actually apply your config choices
 config.use_ime = true
 config.macos_forward_to_ime_modifier_mask = "SHIFT|CTRL"
-config.status_update_interval = 50000
+-- update-status からサブプロセス起動を排除したので短い間隔で回せる
+config.status_update_interval = 2000
 
 config.color_scheme = "JetBrains Darcula"
 config.font = wezterm.font("JetBrains Mono")
@@ -35,10 +38,6 @@ config.audible_bell = "Disabled"
 config.window_background_opacity = 0.9
 
 local act = wezterm.action
-
-wezterm.on("update-right-status", function(window, pane)
-	window:set_right_status(window:active_workspace())
-end)
 
 -- Helper function to run a command in an overlay pane
 local function spawn_overlay_pane()
@@ -113,6 +112,12 @@ config.keys = {
 		mods = "LEADER",
 		action = spawn_overlay_pane(),
 	},
+	-- Claude Code のセッション一覧を開き、選んだペインへジャンプする
+	{
+		key = "a",
+		mods = "LEADER",
+		action = agent.dashboard_action(),
+	},
 }
 
 config.key_tables = {
@@ -134,13 +139,30 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 		foreground = "#FFFFFF"
 	end
 
-	local title = "   " .. wezterm.truncate_right(tab.active_pane.title, max_width - 1) .. "   "
+	-- Claude Code が居るタブに印を付ける (running を優先)。
+	-- キャッシュ参照のみなので描画のたびに ps が走ることはない
+	local marker = ""
+	for _, p in ipairs(tab.panes) do
+		local status = agent.pane_status(p.pane_id)
+		if status == "running" then
+			marker = "🔵 "
+			break
+		elseif status == "idle" then
+			marker = "⚫ "
+		end
+	end
+
+	local title = "  " .. marker .. wezterm.truncate_right(tab.active_pane.title, max_width - 1) .. "   "
 
 	return {
 		{ Background = { Color = background } },
 		{ Foreground = { Color = foreground } },
 		{ Text = title },
 	}
+end)
+
+wezterm.on("augment-command-palette", function()
+	return agent.palette_entries()
 end)
 
 wezterm.on("update-status", function(window, pane)
@@ -223,58 +245,50 @@ wezterm.on("update-status", function(window, pane)
 		table.insert(cells, hostname)
 	end
 
-	-- Get list of workspaces using wezterm cli
-	local active_workspace = window:active_workspace()
-	local workspaces = {}
-	local workspace_str = ""
-
-	-- Determine wezterm path based on OS
-	local wezterm_path = "wezterm"
-	local os_name = io.popen("uname -s"):read("*l")
-	if os_name == "Darwin" then
-		wezterm_path = "/opt/homebrew/bin/wezterm"
+	-- Claude Code の状態をスキャンし、完了したものを通知する
+	local agents = agent.scan()
+	for _, done in ipairs(agent.take_completed()) do
+		window:toast_notification("Claude Code", done.project .. " が完了しました", nil, 4000)
 	end
 
-	-- Run wezterm cli list to get all workspaces
-	local success, stdout, stderr = wezterm.run_child_process({ wezterm_path, "cli", "list", "--format", "json" })
+	local running, total = agent.summary()
+	if total > 0 then
+		table.insert(cells, string.format("%s %d/%d", running > 0 and "🔵" or "⚫", running, total))
+	end
 
-	if success then
-		-- Parse JSON output to extract unique workspaces
-		local ok, json_data = pcall(wezterm.json_parse, stdout)
-		if ok and json_data then
-			local unique_workspaces = {}
-			for _, entry in ipairs(json_data) do
-				if entry.workspace then
-					unique_workspaces[entry.workspace] = true
-				end
-			end
+	-- Get list of workspaces from the mux (no subprocess needed)
+	local active_workspace = window:active_workspace()
 
-			-- Convert to sorted list
-			for workspace, _ in pairs(unique_workspaces) do
-				table.insert(workspaces, workspace)
-			end
-			table.sort(workspaces)
-
-			-- Format workspace list with current workspace highlighted
-			local workspace_list = {}
-			for _, ws in ipairs(workspaces) do
-				if ws == active_workspace then
-					table.insert(workspace_list, "[" .. ws .. "]")
-				else
-					table.insert(workspace_list, ws)
-				end
-			end
-
-			workspace_str = table.concat(workspace_list, " | ")
+	-- 実行中のエージェントを抱えているワークスペースには * を付ける
+	local busy = {}
+	for _, a in ipairs(agents) do
+		if a.status == "running" then
+			busy[a.workspace] = true
 		end
 	end
 
-	-- If we couldn't get the list, just show current workspace
-	if workspace_str == "" then
-		workspace_str = "[" .. active_workspace .. "]"
+	local unique_workspaces = { [active_workspace] = true }
+	for _, mux_win in ipairs(wezterm.mux.all_windows()) do
+		unique_workspaces[mux_win:get_workspace()] = true
 	end
 
-	table.insert(cells, workspace_str)
+	local workspaces = {}
+	for ws in pairs(unique_workspaces) do
+		table.insert(workspaces, ws)
+	end
+	table.sort(workspaces)
+
+	-- Format workspace list with current workspace highlighted
+	local workspace_list = {}
+	for _, ws in ipairs(workspaces) do
+		local label = busy[ws] and (ws .. "*") or ws
+		if ws == active_workspace then
+			label = "[" .. label .. "]"
+		end
+		table.insert(workspace_list, label)
+	end
+
+	table.insert(cells, table.concat(workspace_list, " | "))
 
 	-- The powerline < symbol
 	local LEFT_ARROW = utf8.char(0xe0b3)

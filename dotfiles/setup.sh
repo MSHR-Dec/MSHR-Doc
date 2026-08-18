@@ -1,6 +1,9 @@
 #! /bin/bash
 
-DIR=$(cd $(dirname $0); pwd)
+DIR=$(
+  cd $(dirname $0)
+  pwd
+)
 
 CUSTOM_REQUIREMENT="${DIR}"/nvim/lua/custom/requirements.lua
 CUSTOM_LUA="${DIR}"/nvim/lua/custom/custom.lua
@@ -21,9 +24,9 @@ ln -fnsv "${DIR}"/nvim ~/.config/nvim
 ln -fnsv "${DIR}"/.vimrc ~/.vimrc
 ln -fnsv "${DIR}"/.bash_override ~/.bash_override
 if [ "$(uname)" == "Darwin" ]; then
-  grep -qxF 'source $HOME/.bash_override' $HOME/.bash_profile || echo 'source $HOME/.bash_override' >> $HOME/.bash_profile
+  grep -qxF 'source $HOME/.bash_override' $HOME/.bash_profile || echo 'source $HOME/.bash_override' >>$HOME/.bash_profile
 elif [ "$(uname)" == "Linux" ]; then
-  grep -qxF 'source $HOME/.bash_override' $HOME/.bashrc || echo 'source $HOME/.bash_override' >> $HOME/.bashrc
+  grep -qxF 'source $HOME/.bash_override' $HOME/.bashrc || echo 'source $HOME/.bash_override' >>$HOME/.bashrc
 fi
 
 mkdir -p ~/.config/tmux
@@ -36,6 +39,7 @@ fi
 
 mkdir -p ~/.config/wezterm
 ln -fnsv "${DIR}"/wezterm/wezterm.lua ~/.config/wezterm/wezterm.lua
+ln -fnsv "${DIR}"/wezterm/agent.lua ~/.config/wezterm/agent.lua
 ln -fnsv "${CUSTOM_WEZTERM}" ~/.config/wezterm/custom.lua
 
 mkdir -p ~/.config/zed
@@ -46,3 +50,5 @@ mkdir -p ~/.config/xremap
 mkdir -p ~/.config/systemd/user
 ln -fnsv "${DIR}"/xremap/config.yml ~/.config/xremap/config.yml
 ln -fnsv "${DIR}"/xremap/xremap.service ~/.config/systemd/user/xremap.service
+
+ln -fnsv "${DIR}"/.Brewfile ~/.Brewfile

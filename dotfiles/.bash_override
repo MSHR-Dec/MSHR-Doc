@@ -6,6 +6,14 @@ _zhz() {
   ssh $(grep -E "^Host " ~/.ssh/config | grep -v "*" | sed -e 's/Host[ ]*//g' | fzf)
 }
 
+y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	command yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+	command rm -f -- "$tmp"
+}
+
 if type brew &>/dev/null; then
   alias ls='gls --color'
   HOMEBREW_PREFIX="$(brew --prefix)"
