@@ -75,7 +75,9 @@
   "theme": {
     "mode": "system",
     "light": "One Light",
-    "dark": "JetBrains Dark",
+    // zed/themes/new-darcula-jetbrains-syntax.json
+    // UI 配色は New Darcula、シンタックスハイライトは JetBrains Dark
+    "dark": "New Darcula JetBrains Syntax",
   },
   "experimental.theme_overrides": {
     "terminal.background": "#2b2b2d",

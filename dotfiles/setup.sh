@@ -46,6 +46,9 @@ mkdir -p ~/.config/zed
 ln -fnsv "${DIR}"/zed/settings.json ~/.config/zed/settings.json
 ln -fnsv "${DIR}"/zed/keymap.json ~/.config/zed/keymap.json
 
+mkdir -p ~/.config/zed/themes
+ln -fnsv "${DIR}"/zed/themes/new-darcula-jetbrains-syntax.json ~/.config/zed/themes/new-darcula-jetbrains-syntax.json
+
 mkdir -p ~/.config/xremap
 mkdir -p ~/.config/systemd/user
 ln -fnsv "${DIR}"/xremap/config.yml ~/.config/xremap/config.yml
