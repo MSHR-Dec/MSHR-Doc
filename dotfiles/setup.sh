@@ -15,11 +15,18 @@ if [ ! -e "${CUSTOM_LUA}" ]; then
 fi
 
 mkdir -p ~/.config
-# If ~/.config/nvim is a real directory (pre-LazyVim setup), back it up before symlinking.
+# If ~/.config/nvim is a real directory, back it up before symlinking.
 if [ -e ~/.config/nvim ] && [ ! -L ~/.config/nvim ]; then
   mv ~/.config/nvim ~/.config/nvim.backup.$(date +%Y%m%d-%H%M%S)
 fi
 ln -fnsv "${DIR}"/nvim ~/.config/nvim
+
+PLUG_VIM="${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim
+if [ ! -e "${PLUG_VIM}" ]; then
+  curl -fLo "${PLUG_VIM}" --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi
+nvim --headless "+PlugInstall --sync" +qa
 
 ln -fnsv "${DIR}"/.vimrc ~/.vimrc
 ln -fnsv "${DIR}"/.bash_override ~/.bash_override

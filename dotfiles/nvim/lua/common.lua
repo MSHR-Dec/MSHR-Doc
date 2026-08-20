@@ -1,38 +1,47 @@
--- Disable LazyVim defaults that conflict with our scheme.
--- LazyVim binds these on VeryLazy, so we delete them inside a VeryLazy autocmd.
-vim.api.nvim_create_autocmd("User", {
-  pattern = "VeryLazy",
-  callback = function()
-    local del = function(mode, lhs) pcall(vim.keymap.del, mode, lhs) end
-    del("n", "<S-h>")
-    del("n", "<S-l>")
-    del("n", "[b")
-    del("n", "]b")
-  end,
-})
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 
--- Cursor / register behaviour
+-- 使わない provider を無効化（起動時の実行ファイル探索を省く）
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+
+-- options
+vim.opt.ambiwidth = "double"
+vim.opt.cinoptions:append(":0")
+vim.opt.clipboard = { "unnamedplus" }
+vim.opt.cmdheight = 1
+vim.opt.cursorline = true
+vim.opt.expandtab = true
+vim.opt.ignorecase = true
+vim.opt.matchtime = 1
+vim.opt.number = true
+vim.opt.showmatch = true
+vim.opt.shiftwidth = 0
+vim.opt.smartcase = true
+vim.opt.smartindent = true
+vim.opt.softtabstop = 2
+vim.opt.tabstop = 2
+vim.opt.termguicolors = true
+vim.opt.title = true
+vim.opt.updatetime = 400
+vim.opt.writebackup = false
+
+-- keymaps
 vim.keymap.set("n", "x", "\"_x")
 vim.keymap.set("n", "s", "\"_s")
-
--- Buffer navigation
 vim.keymap.set("n", "<c-n>", "<cmd>bnext<cr>", { remap = true })
 vim.keymap.set("n", "<c-p>", "<cmd>bprev<cr>", { remap = true })
-
--- Leader misc
 vim.keymap.set("n", "<Leader>;", "<cmd>nohlsearch<cr>", { remap = true })
-vim.keymap.set("n", "<Leader>jq", "<cmd>%!jq '.'<cr><ecs>", { remap = true })
+vim.keymap.set("n", "<Leader>jq", "<cmd>%!jq '.'<cr>", { remap = true })
 vim.keymap.set("n", "<Leader>vs", "<cmd>vsplit<cr><C-w>w<cr>", { remap = true })
-vim.keymap.set("n", "<Leader>nu", "<cmd>set number!<CR>")
-vim.keymap.set("n", "<Esc><Esc>", "<Cmd>nohlsearch<CR><Esc>", { noremap = true, silent = true })
-
--- Window navigation
+vim.keymap.set("n", "<Leader>nu", "<cmd>set number!<cr>")
+vim.keymap.set("n", "<Esc><Esc>", "<cmd>nohlsearch<cr><Esc>", { noremap = true, silent = true })
 vim.keymap.set("n", "<c-h>", "<c-w>h")
 vim.keymap.set("n", "<c-j>", "<c-w>j")
 vim.keymap.set("n", "<c-k>", "<c-w>k")
 vim.keymap.set("n", "<c-l>", "<c-w>l")
-
--- Window resize
 vim.keymap.set("n", "<c-up>", "<cmd>resize -2<cr>")
 vim.keymap.set("n", "<c-down>", "<cmd>resize +2<cr>")
 vim.keymap.set("n", "<c-left>", "<cmd>vertical resize -2<cr>")
@@ -43,8 +52,6 @@ vim.keymap.set("t", "<c-left>", "<cmd>vertical resize -2<cr>")
 vim.keymap.set("t", "<c-right>", "<cmd>vertical resize +2<cr>")
 vim.keymap.set("t", "<c-j>", "<cmd>wincmd j<cr>")
 vim.keymap.set("t", "<c-k>", "<cmd>wincmd k<cr>")
-
--- Visual mode
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("v", "<", "<gv")

@@ -1,2 +1,3 @@
 lua/custom/requirements.lua
 lua/custom/custom.lua
+nvim.log
