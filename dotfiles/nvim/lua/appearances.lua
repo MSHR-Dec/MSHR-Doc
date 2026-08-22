@@ -14,10 +14,118 @@ require("nvim-treesitter.configs").setup({
   highlight = { enable = true },
 })
 
+-- Neovim 0.12 系のバグ回避: markdown の highlights クエリにある
+-- `(#set! conceal_lines "")` が languagetree.lua の parse 中に
+-- `attempt to call method 'range' (a nil value)` でクラッシュする
+-- (https://github.com/neovim/neovim/issues/39032)。
+-- conceal_lines の設定だけを取り除いたクエリで上書きする。
+vim.treesitter.query.set("markdown", "highlights", [[
+;From MDeiml/tree-sitter-markdown & Helix
+(setext_heading
+  (paragraph) @markup.heading.1
+  (setext_h1_underline) @markup.heading.1)
+
+(setext_heading
+  (paragraph) @markup.heading.2
+  (setext_h2_underline) @markup.heading.2)
+
+(atx_heading
+  (atx_h1_marker)) @markup.heading.1
+
+(atx_heading
+  (atx_h2_marker)) @markup.heading.2
+
+(atx_heading
+  (atx_h3_marker)) @markup.heading.3
+
+(atx_heading
+  (atx_h4_marker)) @markup.heading.4
+
+(atx_heading
+  (atx_h5_marker)) @markup.heading.5
+
+(atx_heading
+  (atx_h6_marker)) @markup.heading.6
+
+(info_string) @label
+
+(pipe_table_header
+  (pipe_table_cell) @markup.heading)
+
+(pipe_table_header
+  "|" @punctuation.special)
+
+(pipe_table_row
+  "|" @punctuation.special)
+
+(pipe_table_delimiter_row
+  "|" @punctuation.special)
+
+(pipe_table_delimiter_cell) @punctuation.special
+
+; Code blocks (conceal backticks and language annotation)
+(indented_code_block) @markup.raw.block
+
+((fenced_code_block) @markup.raw.block
+  (#set! priority 90))
+
+(fenced_code_block
+  (fenced_code_block_delimiter) @markup.raw.block
+  (#set! conceal ""))
+
+(fenced_code_block
+  (info_string
+    (language) @label
+    (#set! conceal "")))
+
+(link_destination) @markup.link.url
+
+[
+  (link_title)
+  (link_label)
+] @markup.link.label
+
+((link_label)
+  .
+  ":" @punctuation.delimiter)
+
+[
+  (list_marker_plus)
+  (list_marker_minus)
+  (list_marker_star)
+  (list_marker_dot)
+  (list_marker_parenthesis)
+] @markup.list
+
+(thematic_break) @punctuation.special
+
+(task_list_marker_unchecked) @markup.list.unchecked
+
+(task_list_marker_checked) @markup.list.checked
+
+((block_quote) @markup.quote
+  (#set! priority 90))
+
+([
+  (plus_metadata)
+  (minus_metadata)
+] @keyword.directive
+  (#set! priority 90))
+
+[
+  (block_continuation)
+  (block_quote_marker)
+] @punctuation.special
+
+(backslash_escape) @string.escape
+
+(inline) @spell
+]])
+
 -- nerdtree
 vim.g.NERDTreeShowLineNumbers = 1
 vim.g.NERDTreeShowHidden = 1
-vim.g.NERDTreeWinSize = 35
+vim.g.NERDTreeWinSize = 30
 vim.g.NERDTreeIgnore = { '^node_modules$', '^sig$' }
 vim.keymap.set("n", "<c-b>", "<cmd>NERDTreeToggle<cr>", { remap = true })
 vim.api.nvim_set_hl(0, "NERDTreeDir", { ctermfg = 0, fg = "#C7ADFF" })
