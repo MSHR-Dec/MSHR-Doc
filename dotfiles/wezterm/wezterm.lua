@@ -25,6 +25,8 @@ config.window_frame = {
 	font = wezterm.font("JetBrains Mono", { italic = true }),
 	active_titlebar_bg = "#47266e",
 }
+config.initial_cols = 210
+config.initial_rows = 60
 
 config.inactive_pane_hsb = {
 	saturation = 0.7,
