@@ -17,7 +17,13 @@
     "dock": "right"
   },
   "edit_predictions": {
-    "provider": "none",
+    "provider": "open_ai_compatible_api",
+    "open_ai_compatible_api": {
+      "api_url": "http://ubuntu:8080/v1/completions",
+      "model": "unsloth/Qwen2.5-Coder-7B-Instruct-GGUF:Q4_K_M",
+      "prompt_format": "qwen",
+      "max_output_tokens": 32
+    }
   },
   "icon_theme": "Catppuccin Frappé",
   "ui_font_family": ".ZedMono",
@@ -49,8 +55,8 @@
     "dock": "right",
     "default_profile": "ask",
     "default_model": {
-      "provider": "copilot_chat",
-      "model": "gpt-4.1",
+      "provider": "nuc-llama",
+      "model": "unsloth/Qwen2.5-Coder-7B-Instruct-GGUF:Q4_K_M",
     },
     // Terminal Thread で Claude Code が BEL を出したときのポップアップを
     // 全ディスプレイに表示する。該当ターミナルが表示中のときは抑制される。
@@ -129,6 +135,20 @@
         "experimentalFeatures": {
           "prefillRequiredFields": true
         }
+      }
+    }
+  },
+  "language_models": {
+    "openai_compatible": {
+      "nuc-llama": {
+        "api_url": "http://ubuntu:8080/v1",
+        "available_models": [
+          {
+            "name": "unsloth/Qwen2.5-Coder-7B-Instruct-GGUF:Q4_K_M",
+            "display_name": "Qwen2.5-Coder-7B (NUC)",
+            "max_tokens": 131072
+          }
+        ]
       }
     }
   }
