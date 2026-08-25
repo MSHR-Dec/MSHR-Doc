@@ -134,7 +134,7 @@ vim.api.nvim_set_hl(0, "NERDTreeDir", { ctermfg = 0, fg = "#C7ADFF" })
 require("lualine").setup({
   sections = {
     lualine_c = {
-      "%{fnamemodify(getcwd(),':~')}",
+      function() return vim.fn.fnamemodify(vim.fn.getcwd(), ":~") end,
       "%f",
     },
   },
@@ -160,7 +160,9 @@ require("bufferline").setup({
     offsets = {
       {
         filetype = "nerdtree",
-        text = "%{fnamemodify(getcwd(),':~')}",
+        -- 文字列で "%{...}" を渡すと NERDTreeWinSize に合わせて式ごと切り詰められ、
+        -- 閉じない %{ が tabline を壊すため関数で評価済みの文字列を返す
+        text = function() return vim.fn.fnamemodify(vim.fn.getcwd(), ":~") end,
         text_align = "left",
       },
     },

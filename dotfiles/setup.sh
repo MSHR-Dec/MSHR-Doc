@@ -56,6 +56,10 @@ ln -fnsv "${DIR}"/zed/keymap.json ~/.config/zed/keymap.json
 mkdir -p ~/.config/zed/themes
 ln -fnsv "${DIR}"/zed/themes/new-darcula-jetbrains-syntax.json ~/.config/zed/themes/new-darcula-jetbrains-syntax.json
 
+mkdir -p ~/.config/yazi
+ln -fnsv "${DIR}"/yazi/yazi.toml ~/.config/yazi/yazi.toml
+ln -fnsv "${DIR}"/yazi/theme.toml ~/.config/yazi/theme.toml
+
 mkdir -p ~/.config/xremap
 mkdir -p ~/.config/systemd/user
 ln -fnsv "${DIR}"/xremap/config.yml ~/.config/xremap/config.yml

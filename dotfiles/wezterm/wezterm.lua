@@ -18,7 +18,16 @@ config.macos_forward_to_ime_modifier_mask = "SHIFT|CTRL"
 -- update-status からサブプロセス起動を排除したので短い間隔で回せる
 config.status_update_interval = 2000
 
-config.color_scheme = "JetBrains Darcula"
+-- JetBrains Darcula の ansi green/blue は背景 #2B2B2B だと暗すぎるので差し替える
+local scheme = wezterm.color.get_builtin_schemes()["JetBrains Darcula"]
+scheme.ansi[3] = "#6ac06a" -- green (Lua は 1 始まり)
+scheme.ansi[5] = "#7eaef1" -- blue
+scheme.brights[5] = "#8cb4ff" -- bright blue
+scheme.foreground = "#FFFFFF"
+scheme.background = "#2B2B2B"
+
+config.color_schemes = { ["Darcula Custom"] = scheme }
+config.color_scheme = "Darcula Custom"
 config.font = wezterm.font("JetBrains Mono")
 config.font_size = 12.0
 config.window_frame = {
