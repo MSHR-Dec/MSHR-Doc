@@ -60,6 +60,9 @@ mkdir -p ~/.config/yazi
 ln -fnsv "${DIR}"/yazi/yazi.toml ~/.config/yazi/yazi.toml
 ln -fnsv "${DIR}"/yazi/theme.toml ~/.config/yazi/theme.toml
 
+mkdir -p ~/.config/brush
+ln -fnsv "${DIR}"/brush/config.toml ~/.config/brush/config.toml
+
 mkdir -p ~/.config/xremap
 mkdir -p ~/.config/systemd/user
 ln -fnsv "${DIR}"/xremap/config.yml ~/.config/xremap/config.yml
