@@ -1,6 +1,6 @@
 -- toggleterm.nvim
 local login_shell = vim.fn.executable("/opt/homebrew/bin/bash") == 1
-  and "/opt/homebrew/bin/bash --login"
+  and "/opt/homebrew/bin/brush --login"
   or "/bin/bash --login"
 
 require("toggleterm").setup({

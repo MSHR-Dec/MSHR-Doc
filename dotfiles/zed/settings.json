@@ -45,7 +45,7 @@
     "dock": "bottom",
     "shell": {
       "with_arguments": {
-        "program": "/opt/homebrew/bin/bash",
+        "program": "/opt/homebrew/bin/brush",
         "args": ["--login"],
       },
     },

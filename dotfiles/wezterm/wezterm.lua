@@ -55,7 +55,7 @@ local function spawn_overlay_pane()
 	return wezterm.action_callback(function(window, pane)
 		local new_pane = pane:split({
 			direction = "Bottom",
-			args = { "/opt/homebrew/bin/bash", "--login" },
+			args = { "/opt/homebrew/bin/brush", "--login" },
 		})
 		window:perform_action(act.TogglePaneZoomState, new_pane)
 	end)
