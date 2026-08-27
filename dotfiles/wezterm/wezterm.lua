@@ -50,6 +50,10 @@ config.window_background_opacity = 0.9
 
 local act = wezterm.action
 
+-- overlay pane (leader+o で spawn したペイン) の pane_id を記録し、
+-- タブバーに印を付けられるようにする
+local overlay_panes = {}
+
 -- Helper function to run a command in an overlay pane
 local function spawn_overlay_pane()
 	return wezterm.action_callback(function(window, pane)
@@ -57,6 +61,7 @@ local function spawn_overlay_pane()
 			direction = "Bottom",
 			args = { "/opt/homebrew/bin/brush", "--login" },
 		})
+		overlay_panes[new_pane:pane_id()] = true
 		window:perform_action(act.TogglePaneZoomState, new_pane)
 	end)
 end
@@ -160,6 +165,14 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 			break
 		elseif status == "idle" then
 			marker = "⚫ "
+		end
+	end
+
+	-- leader+o の overlay ペインが居るタブに印を付ける
+	for _, p in ipairs(tab.panes) do
+		if overlay_panes[p.pane_id] then
+			marker = marker .. "💩 "
+			break
 		end
 	end
 
