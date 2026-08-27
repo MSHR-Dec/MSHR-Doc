@@ -6,19 +6,11 @@ Plug 'jistr/vim-nerdtree-tabs'
 Plug '/opt/homebrew/opt/fzf'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'dense-analysis/ale'
 Plug 'preservim/vim-markdown'
 Plug 'voldikss/vim-floaterm'
 Plug 'vim-airline/vim-airline'
 Plug 'airblade/vim-gitgutter'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'mattn/vim-goimports'
 Plug 'tpope/vim-endwise'
-Plug 'hashivim/vim-terraform'
 
 call plug#end()
 
@@ -26,7 +18,7 @@ call plug#end()
 nnoremap <C-b> :NERDTreeToggle<CR>
 let NERDTreeShowLineNumbers=1
 let NERDTreeShowHidden=1
-let g:NERDTreeWinSize=50
+let g:NERDTreeWinSize=30
 
 " Floaterm
 nmap <C-t> :FloatermToggle /bin/bash --login<CR>

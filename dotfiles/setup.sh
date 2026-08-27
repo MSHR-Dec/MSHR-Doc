@@ -5,6 +5,7 @@ DIR=$(
   pwd
 )
 
+ln -fnsv "${DIR}"/.vimrc ~/.vimrc
 CUSTOM_REQUIREMENT="${DIR}"/nvim/lua/custom/requirements.lua
 CUSTOM_LUA="${DIR}"/nvim/lua/custom/custom.lua
 if [ ! -e "${CUSTOM_REQUIREMENT}" ]; then
