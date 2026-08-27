@@ -8,8 +8,10 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 ```
-brew install anyenv bash coreutils direnv fd font-jetbrains-mono-nerd-font fzf kind lazydocker git neovim peco ripgrep tig tree z
-brew install --cask docker google-chrome hyper intellij-idea raycast slack vivaldi wezterm zed
+./setup.sh
+brewi
+echo /opt/homebrew/bin/brush | sudo tee -a /etc/shells
+chsh -s /opt/homebrew/bin/brush
 anyenv init
 anyenv install --init
 ```

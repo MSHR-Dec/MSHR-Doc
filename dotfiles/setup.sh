@@ -66,3 +66,8 @@ ln -fnsv "${DIR}"/xremap/config.yml ~/.config/xremap/config.yml
 ln -fnsv "${DIR}"/xremap/xremap.service ~/.config/systemd/user/xremap.service
 
 ln -fnsv "${DIR}"/.Brewfile ~/.Brewfile
+CUSTOM_BREWFILE="${DIR}"/.Brewfile.local
+if [ ! -e "${CUSTOM_BREWFILE}" ]; then
+  cp "${CUSTOM_BREWFILE}".template "${CUSTOM_BREWFILE}"
+fi
+ln -fnsv "${CUSTOM_BREWFILE}" ~/.Brewfile.local
