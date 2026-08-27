@@ -19,7 +19,8 @@ _brew_bundle_all() {
   brew bundle "$1" --file="$HOME/.Brewfile.local"
 }
 
-if [ -n "HOMEBREW_PREFIX" ]; then
+HOMEBREW_PREFIX=/opt/homebrew
+if [ -d "${HOMEBREW_PREFIX}" ]; then
   alias ls='gls --color'
 
   source ${HOMEBREW_PREFIX}/etc/bash_completion.d/git-completion.bash
