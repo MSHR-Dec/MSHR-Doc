@@ -29,7 +29,6 @@ brew "tig", trusted: true
 brew "tree", trusted: true
 brew "yazi", args: ["HEAD"], trusted: true
 brew "yq", trusted: true
-brew "z", trusted: true
 brew "zoxide", trusted: true
 cask "claude-code", trusted: true
 cask "font-hackgen", trusted: true

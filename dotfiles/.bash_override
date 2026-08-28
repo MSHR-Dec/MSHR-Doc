@@ -24,7 +24,6 @@ if [ -d "${HOMEBREW_PREFIX}" ]; then
   alias ls='gls --color'
 
   source ${HOMEBREW_PREFIX}/etc/bash_completion.d/git-completion.bash
-  source ${HOMEBREW_PREFIX}/etc/profile.d/z.sh
   source ${HOMEBREW_PREFIX}/etc/bash_completion.d/git-prompt.sh
   eval "$(${HOMEBREW_PREFIX}/bin/brew shellenv)"
   if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
@@ -38,7 +37,6 @@ if [ -d "${HOMEBREW_PREFIX}" ]; then
 else
   source ~/.config/git/git-completion.bash
   source ~/.config/git/git-prompt.sh
-  source ~/.config/z/z.sh
 fi
 
 _timer_start() {
@@ -74,3 +72,4 @@ export PATH="$GOPATH/bin:$PATH"
 
 eval "$(direnv hook bash)"
 eval "$(fzf --bash)"
+eval "$(zoxide init bash)"
