@@ -47,7 +47,6 @@ _timer_stop() {
 }
 
 trap '_timer_start' DEBUG
-PROMPT_COMMAND='_timer_stop'
 
 GIT_PS1_SHOWDIRTYSTATE=true
 PS1='\[\033[0m\]:\[\033[35m\]\w \[\033[31m\]$(__git_ps1)\[\033[33m\]${_cmd_elapsed}\[\033[36m\] \t\n\[\033[0m\]$ '
@@ -69,3 +68,5 @@ export PATH="$GOPATH/bin:$PATH"
 eval "$(direnv hook bash)"
 eval "$(fzf --bash)"
 eval "$(zoxide init bash)"
+
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND;}_timer_stop"
