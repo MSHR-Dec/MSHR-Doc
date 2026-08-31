@@ -3,8 +3,13 @@ local act = wezterm.action
 
 local M = {}
 
-local STATUS_ICON = { running = "🔵", idle = "⚫" }
-local STATUS_NERD_ICON = { running = "md_robot", idle = "md_robot_off_outline" }
+local STATUS_ICON = { running = "🔵", waiting = "🟡", idle = "⚫" }
+local STATUS_NERD_ICON =
+	{ running = "md_robot", waiting = "md_robot_confused_outline", idle = "md_robot_off_outline" }
+
+-- ~/.claude/sessions/<pid>.json の status を pane 表示用ステータスへ変換
+local SESSION_STATUS = { busy = "running", waiting = "waiting", idle = "idle", shell = "idle" }
+local SESSIONS_DIR = os.getenv("HOME") .. "/.claude/sessions"
 
 -- ps の実行コストを抑えるための TTL キャッシュ
 local CACHE_TTL = 3
@@ -30,7 +35,34 @@ local function find_claude_ancestor(pid, procs, claude_pids)
 	return nil
 end
 
--- 1 ペインの状態を判定する。claude が居なければ nil
+-- ~/.claude/sessions/*.json を読み、pid -> セッション情報 のテーブルを返す
+-- Claude Code 本体がプロセスごとに書き出すファイルで、name(自動生成された短い名前)や
+-- status(busy/waiting/idle/shell) が入っている。caffeinate 子プロセスの有無より正確
+local function read_sessions()
+	local sessions = {}
+	local ok, entries = pcall(wezterm.read_dir, SESSIONS_DIR)
+	if not ok or not entries then
+		return sessions
+	end
+	for _, path in ipairs(entries) do
+		local pid_s = path:match("(%d+)%.json$")
+		if pid_s then
+			local f = io.open(path, "r")
+			if f then
+				local content = f:read("a")
+				f:close()
+				local pok, data = pcall(wezterm.json_parse, content)
+				if pok and type(data) == "table" then
+					sessions[tonumber(pid_s)] = data
+				end
+			end
+		end
+	end
+	return sessions
+end
+
+-- 1 ペインの状態を判定する。claude が居なければ nil。
+-- 見つかった claude プロセスの pid も返す(呼び出し側でセッション情報を引くため)
 local function detect_pane_agent(pane, procs, claude_pids, claude_status)
 	local ok, fg_info = pcall(function()
 		return pane:get_foreground_process_info()
@@ -39,7 +71,10 @@ local function detect_pane_agent(pane, procs, claude_pids, claude_status)
 
 	if fg_pid and procs[fg_pid] then
 		local cpid = find_claude_ancestor(fg_pid, procs, claude_pids)
-		return cpid and (claude_status[cpid] or "idle") or nil
+		if cpid then
+			return claude_status[cpid] or "idle", cpid
+		end
+		return nil
 	end
 
 	-- pid が取れないペイン(リモートドメイン等)向けのフォールバック
@@ -91,13 +126,20 @@ function M.scan()
 		claude_status[cpid] = running and "running" or "idle"
 	end
 
+	local sessions = read_sessions()
+
 	local agents, by_pane, seen = {}, {}, {}
 	for _, mux_win in ipairs(wezterm.mux.all_windows()) do
 		local workspace = mux_win:get_workspace()
 		for _, tab in ipairs(mux_win:tabs()) do
 			for _, pane in ipairs(tab:panes()) do
-				local status = detect_pane_agent(pane, procs, claude_pids, claude_status)
+				local status, cpid = detect_pane_agent(pane, procs, claude_pids, claude_status)
 				if status then
+					local session = cpid and sessions[cpid]
+					if session and SESSION_STATUS[session.status] then
+						status = SESSION_STATUS[session.status]
+					end
+
 					local cwd = pane:get_current_working_dir()
 					local dir = (cwd and cwd.file_path or "unknown"):gsub("(.)/$", "%1")
 					local pane_id = pane:pane_id()
@@ -105,7 +147,7 @@ function M.scan()
 					local a = {
 						workspace = workspace,
 						pane_id = pane_id,
-						project = dir:match("([^/]+)$") or dir,
+						project = (session and session.name) or dir:match("([^/]+)$") or dir,
 						dir = dir,
 						status = status,
 					}
@@ -165,6 +207,11 @@ function M.take_completed()
 	local done = completed
 	completed = {}
 	return done
+end
+
+--- ステータスに対応するアイコンを返す
+function M.status_icon(status)
+	return STATUS_ICON[status] or "?"
 end
 
 --- エージェント一覧を InputSelector で開き、選んだペインへジャンプする
