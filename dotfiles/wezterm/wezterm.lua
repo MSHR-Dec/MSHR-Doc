@@ -50,18 +50,32 @@ config.window_background_opacity = 0.9
 
 local act = wezterm.action
 
--- overlay pane (leader+o で spawn したペイン) の pane_id を記録し、
--- タブバーに印を付けられるようにする
+-- overlay pane (leader+o などで spawn したペイン) の pane_id -> タブバーの印。
+-- 値がそのままタブタイトルに連結される
 local overlay_panes = {}
 
--- Helper function to run a command in an overlay pane
-local function spawn_overlay_pane()
+local OVERLAY_SHELL = "/opt/homebrew/bin/brush"
+
+local function toggle_overlay_pane(cmd, marker)
+	local args = { OVERLAY_SHELL, "--login" }
+	if cmd then
+		args = { OVERLAY_SHELL, "--login", "-c", cmd .. "; exec " .. OVERLAY_SHELL .. " --login" }
+	end
+
 	return wezterm.action_callback(function(window, pane)
+		-- overlay ペインに居るなら閉じる (yazi 実行中でも exit 不要で落とす)
+		if overlay_panes[pane:pane_id()] then
+			overlay_panes[pane:pane_id()] = nil
+			window:active_tab():set_zoomed(false)
+			window:perform_action(act.CloseCurrentPane({ confirm = false }), pane)
+			return
+		end
+
 		local new_pane = pane:split({
 			direction = "Bottom",
-			args = { "/opt/homebrew/bin/brush", "--login" },
+			args = args,
 		})
-		overlay_panes[new_pane:pane_id()] = true
+		overlay_panes[new_pane:pane_id()] = marker or "💩 "
 		window:perform_action(act.TogglePaneZoomState, new_pane)
 	end)
 end
@@ -126,7 +140,17 @@ config.keys = {
 	{
 		key = "o",
 		mods = "LEADER",
-		action = spawn_overlay_pane(),
+		action = toggle_overlay_pane(),
+	},
+	{
+		key = "y",
+		mods = "LEADER",
+		action = toggle_overlay_pane("y", "📁 "),
+	},
+	{
+		key = "e",
+		mods = "LEADER",
+		action = toggle_overlay_pane("nvim", "📝 "),
 	},
 	-- Claude Code のセッション一覧を開き、選んだペインへジャンプする
 	{
@@ -168,10 +192,9 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 		end
 	end
 
-	-- leader+o の overlay ペインが居るタブに印を付ける
 	for _, p in ipairs(tab.panes) do
 		if overlay_panes[p.pane_id] then
-			marker = marker .. "💩 "
+			marker = marker .. overlay_panes[p.pane_id]
 			break
 		end
 	end
