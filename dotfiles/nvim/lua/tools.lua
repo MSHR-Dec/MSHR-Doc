@@ -20,11 +20,10 @@ vim.keymap.set("n", "<Leader>lzd", function()
   }):toggle()
 end)
 
--- fzf-lua
-vim.keymap.set("n", "<Leader>gg", function() require("fzf-lua").grep() end)
-vim.keymap.set("n", "<Leader>gf", function() require("fzf-lua").grep_curbuf() end)
-vim.keymap.set("n", "<Leader>gF", function() require("fzf-lua").files() end)
-vim.keymap.set("n", "<Leader>gb", function() require("fzf-lua").buffers() end)
+vim.keymap.set("n", "<Leader>gg", function() require("telescope.builtin").live_grep() end)
+vim.keymap.set("n", "<Leader>gf", function() require("telescope.builtin").current_buffer_fuzzy_find() end)
+vim.keymap.set("n", "<Leader>gF", function() require("telescope.builtin").find_files() end)
+vim.keymap.set("n", "<Leader>gb", function() require("telescope.builtin").buffers() end)
 
 -- memolist.vim
 vim.g.memolist_path = "$HOME/.memo"

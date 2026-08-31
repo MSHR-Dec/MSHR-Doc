@@ -37,7 +37,8 @@ Plug('roobert/search-replace.nvim')
 
 -- tools
 Plug('akinsho/toggleterm.nvim', { ['tag'] = '*' })
-Plug('ibhagwan/fzf-lua', { ['branch'] = 'main' })
+Plug('nvim-lua/plenary.nvim')
+Plug('nvim-telescope/telescope.nvim')
 Plug('glidenote/memolist.vim')
 
 -- filetype
