@@ -28,7 +28,7 @@ Plug('preservim/nerdtree')
 Plug('tiagofumo/vim-nerdtree-syntax-highlight')
 
 -- git
-Plug('lewis6991/gitsigns.nvim')
+Plug('airblade/vim-gitgutter')
 Plug('tpope/vim-fugitive')
 
 -- edit

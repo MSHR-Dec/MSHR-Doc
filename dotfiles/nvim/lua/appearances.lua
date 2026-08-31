@@ -129,6 +129,13 @@ vim.g.NERDTreeWinSize = 30
 vim.g.NERDTreeIgnore = { '^node_modules$', '^sig$' }
 vim.keymap.set("n", "<c-b>", "<cmd>NERDTreeToggle<cr>", { remap = true })
 vim.api.nvim_set_hl(0, "NERDTreeDir", { ctermfg = 0, fg = "#C7ADFF" })
+vim.api.nvim_create_autocmd("VimEnter", {
+  nested = true,
+  callback = function()
+    if vim.fn.exists(":NERDTree") == 0 or vim.fn.argc() > 0 then return end
+    vim.cmd("NERDTree")
+  end,
+})
 
 -- lualine.nvim
 require("lualine").setup({
@@ -169,20 +176,10 @@ require("bufferline").setup({
   },
 })
 
--- gitsigns.nvim
-require("gitsigns").setup({
-  preview_config = { border = "rounded" },
-  on_attach = function(bufnr)
-    local gs = require("gitsigns")
-    local map = function(lhs, rhs)
-      vim.keymap.set("n", lhs, rhs, { buffer = bufnr })
-    end
-    -- gitsigns v1.0 以降 stage_hunk は toggle 動作（undo_stage_hunk は非推奨）
-    map("ghs", gs.stage_hunk)
-    map("ghu", gs.undo_stage_hunk or gs.stage_hunk)
-    map("ghp", gs.preview_hunk)
-  end,
-})
+-- vim-gitgutter, vim-fugitive
+vim.g.gitgutter_preview_win_floating = 1
+vim.keymap.set("n", "ghu", "<Plug>(GitGutterUndoHunk)")
+vim.keymap.set("n", "ghp", "<Plug>(GitGutterPreviewHunk)")
 
 -- indentmini.nvim
 vim.cmd.highlight("IndentLine guifg=#767676")
