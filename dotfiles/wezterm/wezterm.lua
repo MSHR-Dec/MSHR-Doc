@@ -15,8 +15,7 @@ end
 -- This is where you actually apply your config choices
 config.use_ime = true
 config.macos_forward_to_ime_modifier_mask = "SHIFT|CTRL"
--- update-status からサブプロセス起動を排除したので短い間隔で回せる
-config.status_update_interval = 2000
+config.status_update_interval = 200
 
 -- JetBrains Darcula の ansi green/blue は背景 #2B2B2B だと暗すぎるので差し替える
 local scheme = wezterm.color.get_builtin_schemes()["JetBrains Darcula"]
@@ -44,6 +43,7 @@ config.inactive_pane_hsb = {
 
 config.tab_bar_at_bottom = true
 config.enable_scroll_bar = true
+config.scrollback_lines = 1000000
 config.window_close_confirmation = "NeverPrompt"
 config.audible_bell = "Disabled"
 
@@ -222,6 +222,39 @@ end
 local TAB_ACTIVE_BG = "#8b008b"
 local TAB_INACTIVE_BG = "#696969"
 local TAB_FG = "#FFFFFF"
+local SEPARATOR_FG = "#545454"
+
+-- ── モード表示 (タブの左) ─────────────────────────────
+-- key table 名 -> ラベルと配色
+local MODE_STYLES = {
+	copy_mode = { label = "COPY", bg = "#d79921" },
+	search_mode = { label = "SEARCH", bg = "#458588" },
+	resize_pane = { label = "RESIZE", bg = "#689d6a" },
+}
+local LEADER_STYLE = { label = "LEADER", bg = "#b16286" }
+local NORMAL_STYLE = { label = "NORMAL", bg = TAB_INACTIVE_BG }
+
+-- powerline の > (タブバー背景へ繋ぐ)
+local SOLID_RIGHT_ARROW = utf8.char(0xe0b0)
+
+-- 現在のモードをタブの左に描く
+local function update_mode_status(window)
+	local mode = MODE_STYLES[window:active_key_table() or ""]
+	if not mode and window:leader_is_active() then
+		mode = LEADER_STYLE
+	end
+	mode = mode or NORMAL_STYLE
+
+	window:set_left_status(wezterm.format({
+		{ Background = { Color = mode.bg } },
+		{ Foreground = { Color = TAB_FG } },
+		{ Attribute = { Intensity = "Bold" } },
+		{ Text = " " .. mode.label .. " " },
+		"ResetAttributes",
+		{ Foreground = { Color = mode.bg } },
+		{ Text = SOLID_RIGHT_ARROW },
+	}))
+end
 
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
 	local background = tab.is_active and TAB_ACTIVE_BG or TAB_INACTIVE_BG
@@ -250,6 +283,8 @@ wezterm.on("augment-command-palette", function()
 end)
 
 wezterm.on("update-status", function(window, pane)
+	update_mode_status(window)
+
 	-- Each element holds the text for a cell in a "powerline" style << fade
 	local cells = {}
 
@@ -285,17 +320,17 @@ wezterm.on("update-status", function(window, pane)
 	-- active かどうかは push() 側で配色を変えるために保持しておく
 	for _, ws in ipairs(workspaces) do
 		local is_active = ws == active_workspace
-		local label = is_active and ("[" .. ws .. "]") or ws
+		local label = is_active and ("[*" .. ws .. "]") or ("[" .. ws .. "]")
 		for _, a in ipairs(agents_by_workspace[ws] or {}) do
 			label = label .. " " .. agent.status_icon(a.status) .. a.project
 		end
 		table.insert(cells, { text = label, active = is_active })
 	end
 
-	-- The powerline < symbol
-	local LEFT_ARROW = utf8.char(0xe0b3)
 	-- The filled in variant of the < symbol
 	local SOLID_LEFT_ARROW = utf8.char(0xe0b2)
+	-- セル境界の縦線
+	local SEPARATOR = utf8.char(0x2503)
 
 	-- The elements to be formatted
 	local elements = {}
@@ -312,9 +347,8 @@ wezterm.on("update-status", function(window, pane)
 		table.insert(elements, { Background = { Color = bg } })
 		table.insert(elements, { Text = " " .. cell.text .. " " })
 		if next_cell then
-			local next_bg = cell_colors(next_cell)
-			table.insert(elements, { Foreground = { Color = next_bg } })
-			table.insert(elements, { Text = SOLID_LEFT_ARROW })
+			table.insert(elements, { Foreground = { Color = SEPARATOR_FG } })
+			table.insert(elements, { Text = SEPARATOR })
 		end
 	end
 
