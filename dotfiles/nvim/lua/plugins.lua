@@ -15,7 +15,7 @@ vim.call('plug#begin')
 
 -- appearance
 Plug('Mofiqul/dracula.nvim')
-Plug('nvim-treesitter/nvim-treesitter', { ['branch'] = 'master', ['do'] = ':TSUpdate' })
+Plug('nvim-treesitter/nvim-treesitter', { ['branch'] = 'main', ['do'] = ':TSUpdate' })
 Plug('nvim-lualine/lualine.nvim')
 Plug('akinsho/bufferline.nvim')
 Plug('petertriho/nvim-scrollbar')

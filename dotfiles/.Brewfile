@@ -17,6 +17,7 @@ brew "lazydocker", trusted: true
 brew "markdown-oxide", trusted: true
 brew "mycli", trusted: true
 brew "tree-sitter", trusted: true
+brew "tree-sitter-cli", trusted: true
 brew "neovim", trusted: true
 brew "peco", trusted: true
 brew "pnpm", trusted: true
