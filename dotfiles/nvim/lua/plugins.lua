@@ -42,6 +42,8 @@ Plug('nvim-telescope/telescope.nvim')
 Plug('glidenote/memolist.vim')
 
 -- filetype
+Plug('ixru/nvim-markdown')
+Plug('MeanderingProgrammer/render-markdown.nvim')
 Plug('hashivim/vim-terraform')
 
 vim.call('plug#end')

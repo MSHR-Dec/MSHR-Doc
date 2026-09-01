@@ -253,10 +253,11 @@ wezterm.on("update-status", function(window, pane)
 	-- Each element holds the text for a cell in a "powerline" style << fade
 	local cells = {}
 
-	-- Claude Code の状態をスキャンし、完了したものを通知する
+	-- Claude Code の状態をスキャンし、状態遷移を通知する
 	local agents = agent.scan()
-	for _, done in ipairs(agent.take_completed()) do
-		window:toast_notification("Claude Code", done.project .. " が完了しました", nil, 4000)
+	for _, ev in ipairs(agent.take_events()) do
+		local body = ev.kind == "waiting" and " が入力待ちです" or " が完了しました"
+		window:toast_notification("Claude Code", ev.agent.project .. body, nil, 4000)
 	end
 
 	-- workspace ごとにエージェントをグループ化

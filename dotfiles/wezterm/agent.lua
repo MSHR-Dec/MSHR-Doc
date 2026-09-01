@@ -3,7 +3,7 @@ local act = wezterm.action
 
 local M = {}
 
-local STATUS_ICON = { running = "🔵", waiting = "🟡", idle = "⚫" }
+local STATUS_ICON = { running = "🤖", waiting = "💬", idle = "💤" }
 local STATUS_NERD_ICON =
 	{ running = "md_robot", waiting = "md_robot_confused_outline", idle = "md_robot_off_outline" }
 
@@ -15,7 +15,7 @@ local SESSIONS_DIR = os.getenv("HOME") .. "/.claude/sessions"
 local CACHE_TTL = 3
 local cache = { agents = {}, by_pane = {}, timestamp = 0 }
 local prev_status = {} -- pane_id -> 前回スキャン時の状態
-local completed = {} -- running -> idle に遷移したエージェントのキュー
+local events = {} -- 通知すべき状態遷移のキュー { agent = a, kind = "completed"|"waiting" }
 
 -- ppid チェーンを遡って claude プロセスを探す
 local function find_claude_ancestor(pid, procs, claude_pids)
@@ -155,8 +155,14 @@ function M.scan()
 					by_pane[pane_id] = status
 					seen[pane_id] = true
 
-					if prev_status[pane_id] == "running" and status == "idle" then
-						table.insert(completed, a)
+					local prev = prev_status[pane_id]
+					if prev and prev ~= status then
+						if prev == "running" and status == "idle" then
+							table.insert(events, { agent = a, kind = "completed" })
+						elseif status == "waiting" then
+							-- running からの質問待ちも、idle からの許可プロンプトも拾う
+							table.insert(events, { agent = a, kind = "waiting" })
+						end
 					end
 				end
 			end
@@ -201,12 +207,12 @@ function M.summary()
 	return running, total
 end
 
---- 前回呼び出し以降に完了したエージェントを取り出して空にする。
---- 複数ウィンドウで同じ完了が二重通知されるのを防ぐため drain 方式にしている
-function M.take_completed()
-	local done = completed
-	completed = {}
-	return done
+--- 前回呼び出し以降に発生した通知イベントを取り出して空にする。
+--- 複数ウィンドウで同じイベントが二重通知されるのを防ぐため drain 方式にしている
+function M.take_events()
+	local queued = events
+	events = {}
+	return queued
 end
 
 --- ステータスに対応するアイコンを返す
