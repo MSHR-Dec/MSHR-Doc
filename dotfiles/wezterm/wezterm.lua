@@ -25,20 +25,25 @@ scheme.brights[5] = "#8cb4ff" -- bright blue
 scheme.foreground = "#FFFFFF"
 scheme.background = "#2B2B2B"
 
+config.window_background_opacity = 0.9
+config.macos_window_background_blur = 30
+
 config.color_schemes = { ["Darcula Custom"] = scheme }
 config.color_scheme = "Darcula Custom"
-config.font = wezterm.font("JetBrains Mono")
-config.font_size = 12.0
+config.font = wezterm.font("HackGen35")
+config.font_size = 13.0
 config.window_frame = {
 	font = wezterm.font("JetBrains Mono", { italic = true }),
+  font_size = 13.0,
 	active_titlebar_bg = "#47266e",
 }
+config.tab_max_width = 32
 config.initial_cols = 210
 config.initial_rows = 60
 
 config.inactive_pane_hsb = {
 	saturation = 0.7,
-	brightness = 0.5,
+	brightness = 0.6,
 }
 
 config.tab_bar_at_bottom = true
