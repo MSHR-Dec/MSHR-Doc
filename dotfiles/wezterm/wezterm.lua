@@ -83,12 +83,12 @@ config.leader = { key = "q", mods = "CTRL" }
 config.keys = {
 	{
 		key = "v",
-		mods = "LEADER",
+		mods = "LEADER|CTRL",
 		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
 	},
 	{
 		key = "s",
-		mods = "LEADER",
+		mods = "LEADER|CTRL",
 		action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
 	},
 	{ key = "h", mods = "LEADER|CTRL", action = wezterm.action.ActivatePaneDirection("Left") },
@@ -96,13 +96,13 @@ config.keys = {
 	{ key = "k", mods = "LEADER|CTRL", action = wezterm.action.ActivatePaneDirection("Up") },
 	{ key = "j", mods = "LEADER|CTRL", action = wezterm.action.ActivatePaneDirection("Down") },
 	{ key = "r", mods = "LEADER|CTRL", action = act.ActivateKeyTable({ name = "resize_pane", one_shot = false }) },
-	{ key = "z", mods = "LEADER", action = wezterm.action.TogglePaneZoomState },
-	{ key = "f", mods = "LEADER", action = wezterm.action.QuickSelect },
+	{ key = "z", mods = "LEADER|CTRL", action = wezterm.action.TogglePaneZoomState },
+	{ key = "f", mods = "LEADER|CTRL", action = wezterm.action.QuickSelect },
 	{ key = "c", mods = "ALT", action = wezterm.action.CopyTo("Clipboard") },
 	{ key = "v", mods = "ALT", action = wezterm.action.PasteFrom("Clipboard") },
 	{
 		key = "c",
-		mods = "LEADER",
+		mods = "LEADER|CTRL",
 		action = act.PromptInputLine({
 			description = wezterm.format({
 				{ Attribute = { Intensity = "Bold" } },
@@ -123,14 +123,14 @@ config.keys = {
 	},
 	{
 		key = "w",
-		mods = "LEADER",
+		mods = "LEADER|CTRL",
 		action = act.ShowLauncherArgs({
 			flags = "FUZZY|WORKSPACES",
 		}),
 	},
 	{ key = "n", mods = "LEADER|CTRL", action = act.SwitchWorkspaceRelative(1) },
 	{ key = "p", mods = "LEADER|CTRL", action = act.SwitchWorkspaceRelative(-1) },
-	{ key = "[", mods = "LEADER", action = wezterm.action.ActivateCopyMode },
+	{ key = "[", mods = "LEADER|CTRL", action = wezterm.action.ActivateCopyMode },
 	{
 		key = "t",
 		mods = "ALT",
@@ -138,28 +138,28 @@ config.keys = {
 	},
 	{
 		key = "o",
-		mods = "LEADER",
+		mods = "LEADER|CTRL",
 		action = toggle_overlay_pane(),
 	},
 	{
 		key = "y",
-		mods = "LEADER",
+		mods = "LEADER|CTRL",
 		action = toggle_overlay_pane("y", "📁 "),
 	},
 	{
 		key = "e",
-		mods = "LEADER",
+		mods = "LEADER|CTRL",
 		action = toggle_overlay_pane("nvim", "📝 "),
 	},
   {
 		key = "t",
-		mods = "LEADER",
+		mods = "LEADER|CTRL",
 		action = toggle_overlay_pane("tig", "💣 "),
 	},
 	-- Claude Code のセッション一覧を開き、選んだペインへジャンプする
 	{
 		key = "a",
-		mods = "LEADER",
+		mods = "LEADER|CTRL",
 		action = agent.dashboard_action(),
 	},
 }

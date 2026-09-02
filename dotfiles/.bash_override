@@ -46,6 +46,13 @@ _timer_stop() {
   unset _cmd_timer
 }
 
+# brush の cd はプロセスの実 cwd を変えないので、端末には OSC 7 で cwd を明示的に伝える。
+# これが無いと wezterm のタブに出るパスがペイン起動時のディレクトリで固定される
+__osc7_host="${HOSTNAME:-$(hostname)}"
+__osc7_cwd() {
+  printf '\033]7;file://%s%s\007' "$__osc7_host" "$PWD"
+}
+
 trap '_timer_start' DEBUG
 
 GIT_PS1_SHOWDIRTYSTATE=true
@@ -69,4 +76,5 @@ eval "$(direnv hook bash)"
 eval "$(fzf --bash)"
 eval "$(zoxide init bash)"
 
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND;}__osc7_cwd"
 PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND;}_timer_stop"
