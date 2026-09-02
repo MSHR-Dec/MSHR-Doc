@@ -39,7 +39,6 @@ Plug('roobert/search-replace.nvim')
 Plug('akinsho/toggleterm.nvim', { ['tag'] = '*' })
 Plug('nvim-lua/plenary.nvim')
 Plug('nvim-telescope/telescope.nvim')
-Plug('glidenote/memolist.vim')
 
 -- filetype
 Plug('ixru/nvim-markdown')

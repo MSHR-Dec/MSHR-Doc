@@ -28,6 +28,7 @@ brew "sevenzip", trusted: true
 brew "the_silver_searcher", trusted: true
 brew "tig", trusted: true
 brew "tree", trusted: true
+brew "xwmx/taps/nb", trusted: true
 brew "yazi", args: ["HEAD"], trusted: true
 brew "yq", trusted: true
 brew "zoxide", trusted: true
