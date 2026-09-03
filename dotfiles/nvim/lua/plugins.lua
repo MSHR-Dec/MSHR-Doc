@@ -24,8 +24,8 @@ Plug('ryanoasis/vim-devicons')
 Plug('nvim-tree/nvim-web-devicons')
 
 -- filer
-Plug('preservim/nerdtree')
-Plug('tiagofumo/vim-nerdtree-syntax-highlight')
+Plug('MunifTanjim/nui.nvim')
+Plug('nvim-neo-tree/neo-tree.nvim', { ['branch'] = 'v3.x' })
 
 -- git
 Plug('airblade/vim-gitgutter')

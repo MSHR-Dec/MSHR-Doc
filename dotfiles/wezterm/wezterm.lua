@@ -17,7 +17,6 @@ config.use_ime = true
 config.macos_forward_to_ime_modifier_mask = "SHIFT|CTRL"
 config.status_update_interval = 200
 
--- JetBrains Darcula の ansi green/blue は背景 #2B2B2B だと暗すぎるので差し替える
 local scheme = wezterm.color.get_builtin_schemes()["JetBrains Darcula"]
 scheme.ansi[3] = "#6ac06a" -- green (Lua は 1 始まり)
 scheme.ansi[5] = "#7eaef1" -- blue
@@ -160,6 +159,11 @@ config.keys = {
 		key = "t",
 		mods = "LEADER|CTRL",
 		action = toggle_overlay_pane("tig", "💣 "),
+	},
+	{
+		key = "b",
+		mods = "LEADER|CTRL",
+		action = toggle_overlay_pane("nvim ~/.nb/memo", "🔖 "),
 	},
 	-- Claude Code のセッション一覧を開き、選んだペインへジャンプする
 	{

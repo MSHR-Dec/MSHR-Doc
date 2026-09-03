@@ -2,6 +2,10 @@
 require("dracula").setup({
   colors = { bg = "#2B2B2B" },
   transparent_bg = true,
+  overrides = {
+    Visual   = { bg = "#574778" },
+    VisualNOS = { bg = "#574778" },
+  },
 })
 vim.cmd.colorscheme('dracula')
 
@@ -23,21 +27,75 @@ vim.api.nvim_create_autocmd("FileType", {
 -- ambiwidth=double だと既定の見出しサイン '󰫎 ' が3セル幅になり
 -- nvim_buf_set_extmark が Invalid 'sign_text' で失敗するため末尾スペースを外す
 require("render-markdown").setup({
-  heading = { signs = { "󰫎" } },
+  heading = {
+    sign = true,
+    signs = { "󰫎" },
+    icons = {},
+    width = 'block',
+    backgrounds = {},
+  },
+  bullet = { icons = '•' },
 })
 
--- nerdtree
-vim.g.NERDTreeShowLineNumbers = 1
-vim.g.NERDTreeShowHidden = 1
-vim.g.NERDTreeWinSize = 30
-vim.g.NERDTreeIgnore = { '^node_modules$', '^sig$' }
-vim.keymap.set("n", "<c-b>", "<cmd>NERDTreeToggle<cr>", { remap = true })
-vim.api.nvim_set_hl(0, "NERDTreeDir", { ctermfg = 0, fg = "#C7ADFF" })
+-- 言語指定のないコードブロックを 'plain' として描画する
+-- render-markdown は info_string ノードが無いと言語行を描画しないため
+-- (render/markdown/code.lua の Render:language が早期 return する)
+-- 疑似の info/language ノードを注入して既定の描画経路に乗せる
+local ok_devicons, devicons = pcall(require, 'nvim-web-devicons')
+if ok_devicons then
+  devicons.set_icon_by_filetype({ plain = 'txt' })
+end
+
+local ok_code, code = pcall(require, 'render-markdown.render.markdown.code')
+if ok_code then
+  local code_setup = code.setup
+  code.setup = function(self)
+    local enabled = code_setup(self)
+    if enabled and not self.data.language then
+      local delim = self.node:child('fenced_code_block_delimiter', self.node.start_row)
+      if delim then
+        local pos = {
+          start_row = delim.start_row, start_col = delim.end_col,
+          end_row = delim.start_row, end_col = delim.end_col,
+        }
+        self.data.info = vim.tbl_extend('force', pos, { text = '' })
+        self.data.language = vim.tbl_extend('force', pos, { text = 'plain' })
+      end
+    end
+    return enabled
+  end
+end
+
+-- neo-tree.nvim
+require("neo-tree").setup({
+  close_if_last_window = true,
+  window = { width = 30 },
+  filesystem = {
+    filtered_items = {
+      hide_dotfiles = false,
+      hide_gitignored = false,
+      hide_by_name = { "node_modules", "sig" },
+    },
+    follow_current_file = { enabled = true },
+    use_libuv_file_watcher = true,
+  },
+  event_handlers = {
+    {
+      -- 行番号を出すオプションが setup に無いため、
+      -- ツリーのバッファに入った時点でウィンドウローカルに設定する
+      event = "neo_tree_buffer_enter",
+      handler = function() vim.wo.number = true end,
+    },
+  },
+})
+vim.keymap.set("n", "<c-b>", "<cmd>Neotree toggle<cr>", { remap = true })
+vim.api.nvim_set_hl(0, "NeoTreeDirectoryName", { fg = "#C7ADFF" })
+vim.api.nvim_set_hl(0, "NeoTreeDirectoryIcon", { fg = "#C7ADFF" })
 vim.api.nvim_create_autocmd("VimEnter", {
   nested = true,
   callback = function()
-    if vim.fn.exists(":NERDTree") == 0 or vim.fn.argc() > 0 then return end
-    vim.cmd("NERDTree")
+    if vim.fn.exists(":Neotree") == 0 or vim.fn.argc() > 0 then return end
+    vim.cmd("Neotree show")
   end,
 })
 
@@ -70,8 +128,8 @@ require("bufferline").setup({
   options = {
     offsets = {
       {
-        filetype = "nerdtree",
-        -- 文字列で "%{...}" を渡すと NERDTreeWinSize に合わせて式ごと切り詰められ、
+        filetype = "neo-tree",
+        -- 文字列で "%{...}" を渡すとツリーの幅に合わせて式ごと切り詰められ、
         -- 閉じない %{ が tabline を壊すため関数で評価済みの文字列を返す
         text = function() return vim.fn.fnamemodify(vim.fn.getcwd(), ":~") end,
         text_align = "left",
