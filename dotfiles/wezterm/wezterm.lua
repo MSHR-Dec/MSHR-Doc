@@ -24,9 +24,6 @@ scheme.brights[5] = "#8cb4ff" -- bright blue
 scheme.foreground = "#FFFFFF"
 scheme.background = "#2B2B2B"
 
-config.window_background_opacity = 0.9
-config.macos_window_background_blur = 30
-
 config.color_schemes = { ["Darcula Custom"] = scheme }
 config.color_scheme = "Darcula Custom"
 config.font = wezterm.font("HackGen35")
