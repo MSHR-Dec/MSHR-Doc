@@ -69,7 +69,7 @@ end
 -- neo-tree.nvim
 require("neo-tree").setup({
   close_if_last_window = true,
-  window = { width = 30 },
+  window = { position = "float" },
   filesystem = {
     filtered_items = {
       hide_dotfiles = false,
@@ -91,13 +91,6 @@ require("neo-tree").setup({
 vim.keymap.set("n", "<c-b>", "<cmd>Neotree toggle<cr>", { remap = true })
 vim.api.nvim_set_hl(0, "NeoTreeDirectoryName", { fg = "#C7ADFF" })
 vim.api.nvim_set_hl(0, "NeoTreeDirectoryIcon", { fg = "#C7ADFF" })
-vim.api.nvim_create_autocmd("VimEnter", {
-  nested = true,
-  callback = function()
-    if vim.fn.exists(":Neotree") == 0 or vim.fn.argc() > 0 then return end
-    vim.cmd("Neotree show")
-  end,
-})
 
 -- lualine.nvim
 require("lualine").setup({
@@ -156,3 +149,19 @@ vim.keymap.set("n", "ghp", "<Plug>(GitGutterPreviewHunk)")
 vim.cmd.highlight("IndentLine guifg=#767676")
 vim.cmd.highlight("IndentLineCurrent guifg=#af00ff")
 require("indentmini").setup()
+
+-- telescope.nvim (ポップアップを紫系に)
+local telescope_bg = "#30303a"
+for _, group in ipairs({
+  "TelescopeBorder", "TelescopePromptBorder", "TelescopeResultsBorder", "TelescopePreviewBorder",
+  "TelescopeTitle", "TelescopePromptTitle", "TelescopeResultsTitle", "TelescopePreviewTitle",
+}) do
+  vim.api.nvim_set_hl(0, group, { fg = colors.purple, bg = telescope_bg })
+end
+for _, group in ipairs({
+  "TelescopeNormal", "TelescopePromptNormal", "TelescopeResultsNormal", "TelescopePreviewNormal",
+}) do
+  vim.api.nvim_set_hl(0, group, { bg = telescope_bg })
+end
+vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = colors.selection })
+vim.api.nvim_set_hl(0, "TelescopeMatching", { fg = colors.purple, bold = true })
