@@ -20,10 +20,10 @@ vim.keymap.set("n", "<Leader>lzd", function()
   }):toggle()
 end)
 
-vim.keymap.set("n", "<Leader>gg", function() require("telescope.builtin").live_grep() end)
-vim.keymap.set("n", "<Leader>gf", function() require("telescope.builtin").current_buffer_fuzzy_find() end)
-vim.keymap.set("n", "<Leader>gF", function() require("telescope.builtin").find_files() end)
-vim.keymap.set("n", "<Leader>gb", function() require("telescope.builtin").buffers() end)
+vim.keymap.set("n", "<Leader>fg", function() require("telescope.builtin").live_grep() end)
+vim.keymap.set("n", "<Leader>ff", function() require("telescope.builtin").current_buffer_fuzzy_find() end)
+vim.keymap.set("n", "<Leader>fF", function() require("telescope.builtin").find_files() end)
+vim.keymap.set("n", "<Leader>fb", function() require("telescope.builtin").buffers() end)
 
 -- nb (https://xwmx.github.io/nb/)
 -- nb の起動が重いのでノートブックのパスは解決せずに組み立てる
@@ -59,7 +59,34 @@ local function nb_run(args, input)
   return out
 end
 
+-- 既存フォルダを木構造で列挙する（3階層まで、tree コマンド風の枝表示）
+local function nb_folder_tree()
+  local max_depth = 3
+  local lines = {}
+  local function walk(dir, prefix, depth)
+    if depth > max_depth then return end
+    local names = {}
+    for name, kind in vim.fs.dir(dir) do
+      if kind == "directory" and not vim.startswith(name, ".") then
+        table.insert(names, name)
+      end
+    end
+    table.sort(names)
+    for i, name in ipairs(names) do
+      local is_last = i == #names
+      table.insert(lines, prefix .. (is_last and "└── " or "├── ") .. name .. "/")
+      walk(dir .. "/" .. name, prefix .. (is_last and "    " or "│   "), depth + 1)
+    end
+  end
+  walk(nb.dir, "", 1)
+  return lines
+end
+
 local function nb_new()
+  local tree = nb_folder_tree()
+  if #tree > 0 then
+    vim.notify(table.concat(tree, "\n"), vim.log.levels.INFO, { title = "Memo folders" })
+  end
   local opts = { prompt = "Memo path: ", completion = "customlist,v:lua.NbFolderComplete" }
   vim.ui.input(opts, function(input)
     if not input or input == "" then return end

@@ -57,3 +57,13 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
+
+-- insert mode: emacs-like cursor movement
+vim.keymap.set("i", "<c-p>", "<Up>")
+vim.keymap.set("i", "<c-n>", "<Down>")
+vim.keymap.set("i", "<c-b>", "<Left>")
+vim.keymap.set("i", "<c-f>", "<Right>")
+vim.keymap.set("i", "<c-a>", "<Home>")
+vim.keymap.set("i", "<c-e>", "<End>")
+vim.keymap.set("i", "<c-h>", "<BS>")
+vim.keymap.set("i", "<c-d>", "<Del>")

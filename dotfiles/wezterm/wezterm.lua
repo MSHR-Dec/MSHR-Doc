@@ -28,12 +28,14 @@ config.color_schemes = { ["Darcula Custom"] = scheme }
 config.color_scheme = "Darcula Custom"
 config.font = wezterm.font("HackGen35")
 config.font_size = 13.0
+local TAB_BAR_BG = "#47266e"
+
 config.window_frame = {
 	font = wezterm.font("JetBrains Mono", { italic = true }),
   font_size = 13.0,
-	active_titlebar_bg = "#47266e",
+	active_titlebar_bg = TAB_BAR_BG,
 }
-config.tab_max_width = 32
+config.tab_max_width = 16
 config.initial_cols = 210
 config.initial_rows = 60
 
@@ -228,7 +230,6 @@ end
 local TAB_ACTIVE_BG = "#8b008b"
 local TAB_INACTIVE_BG = "#696969"
 local TAB_FG = "#FFFFFF"
-local SEPARATOR_FG = "#545454"
 
 -- ── モード表示 (タブの左) ─────────────────────────────
 -- key table 名 -> ラベルと配色
@@ -325,18 +326,16 @@ wezterm.on("update-status", function(window, pane)
 	-- workspace ごとに、そこに居るエージェントのアイコン一覧を付けて 1 セルとして追加する。
 	-- active かどうかは push() 側で配色を変えるために保持しておく
 	for _, ws in ipairs(workspaces) do
-		local is_active = ws == active_workspace
-		local label = is_active and ("[*" .. ws .. "]") or ("[" .. ws .. "]")
+		local label = "[" .. ws .. "]"
 		for _, a in ipairs(agents_by_workspace[ws] or {}) do
 			label = label .. " " .. agent.status_icon(a.status) .. a.project
 		end
-		table.insert(cells, { text = label, active = is_active })
+		table.insert(cells, { text = label, active = ws == active_workspace })
 	end
 
 	-- The filled in variant of the < symbol
 	local SOLID_LEFT_ARROW = utf8.char(0xe0b2)
-	-- セル境界の縦線
-	local SEPARATOR = utf8.char(0x2503)
+	local CELL_GAP = " "
 
 	-- The elements to be formatted
 	local elements = {}
@@ -347,25 +346,29 @@ wezterm.on("update-status", function(window, pane)
 	end
 
 	-- Translate a cell into elements
-	local function push(cell, next_cell)
+	local function push(cell, is_first)
 		local bg, text_fg = cell_colors(cell)
+
+		-- タブバー背景に戻してから、そのセルの色で < を描く
+		table.insert(elements, "ResetAttributes")
+		table.insert(elements, { Background = { Color = TAB_BAR_BG } })
+		if not is_first then
+			table.insert(elements, { Text = CELL_GAP })
+		end
+		table.insert(elements, { Foreground = { Color = bg } })
+		table.insert(elements, { Text = SOLID_LEFT_ARROW })
+
 		table.insert(elements, { Foreground = { Color = text_fg } })
 		table.insert(elements, { Background = { Color = bg } })
 		table.insert(elements, { Text = " " .. cell.text .. " " })
-		if next_cell then
-			table.insert(elements, { Foreground = { Color = SEPARATOR_FG } })
-			table.insert(elements, { Text = SEPARATOR })
-		end
-	end
 
-	if #cells > 0 then
-		local first_bg = cell_colors(cells[1])
-		table.insert(elements, { Foreground = { Color = first_bg } })
+		-- 右端もタブバー色で < に削り、セルを < 形で閉じる
+		table.insert(elements, { Foreground = { Color = TAB_BAR_BG } })
 		table.insert(elements, { Text = SOLID_LEFT_ARROW })
 	end
 
 	for i, cell in ipairs(cells) do
-		push(cell, cells[i + 1])
+		push(cell, i == 1)
 	end
 
 	window:set_right_status(wezterm.format(elements))

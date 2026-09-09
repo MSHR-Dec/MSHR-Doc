@@ -2,7 +2,6 @@ brew "anyenv", trusted: true
 brew "bash", trusted: true
 brew "brush", trusted: true
 brew "direnv", trusted: true
-brew "docker", link: false
 brew "fd", trusted: true
 brew "ffmpeg-full", trusted: true
 brew "fzf", trusted: true
