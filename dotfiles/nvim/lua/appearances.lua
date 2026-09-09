@@ -140,10 +140,11 @@ vim.keymap.set("n", "<Leader>w", function()
   vim.api.nvim_buf_delete(buf, { force = false })
 end, { desc = "Close current buffer (keep window)" })
 
--- vim-gitgutter, vim-fugitive
-vim.g.gitgutter_preview_win_floating = 1
-vim.keymap.set("n", "ghu", "<Plug>(GitGutterUndoHunk)")
-vim.keymap.set("n", "ghp", "<Plug>(GitGutterPreviewHunk)")
+require("gitsigns").setup({
+  current_line_blame = true,
+})
+vim.keymap.set("n", "ghu", function() require("gitsigns").reset_hunk() end)
+vim.keymap.set("n", "ghp", function() require("gitsigns").preview_hunk() end)
 
 -- indentmini.nvim
 vim.cmd.highlight("IndentLine guifg=#767676")

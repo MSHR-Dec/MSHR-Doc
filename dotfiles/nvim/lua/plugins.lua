@@ -28,7 +28,7 @@ Plug('MunifTanjim/nui.nvim')
 Plug('nvim-neo-tree/neo-tree.nvim', { ['branch'] = 'v3.x' })
 
 -- git
-Plug('airblade/vim-gitgutter')
+Plug('lewis6991/gitsigns.nvim')
 Plug('tpope/vim-fugitive')
 
 -- edit
