@@ -1,29 +1,33 @@
+let mapleader = "\<Space>"
+
 " vim plug
 call plug#begin('~/.vim/plugged')
 
-Plug 'scrooloose/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
 Plug '/opt/homebrew/opt/fzf'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/vim-markdown'
 Plug 'voldikss/vim-floaterm'
 Plug 'vim-airline/vim-airline'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-endwise'
+Plug 'joshdick/onedark.vim'
 
 call plug#end()
 
-" NERDTree
-nnoremap <C-b> :NERDTreeToggle<CR>
-let NERDTreeShowLineNumbers=1
-let NERDTreeShowHidden=1
-let g:NERDTreeWinSize=30
-
 " Floaterm
-nmap <C-t> :FloatermToggle /bin/bash --login<CR>
+let g:floaterm_opener = 'edit'
+nmap <C-t> :FloatermToggle /opt/homebrew/bin/brush --login<CR>
+nnoremap <C-b> :FloatermNew --width=0.9 --height=0.9 --title=yazi yazi<CR>
+
+" fzf
+let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden --exclude .git'
+nnoremap <Leader>fg :Rg<CR>
+nnoremap <Leader>ff :BLines<CR>
+nnoremap <Leader>fF :Files<CR>
+nnoremap <Leader>fb :Buffers<CR>
 
 " vim-airline
+let g:airline_theme='onedark'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = ''
@@ -42,7 +46,7 @@ set nowritebackup
 set nobackup
 set virtualedit=block
 set backspace=indent,eol,start
-set ambiwidth=double
+set ambiwidth=single
 set wildmenu
 set ignorecase
 set smartcase
@@ -57,7 +61,6 @@ set showcmd
 set display=lastline
 set listchars=tab:^\ ,trail:~
 set history=10000
-hi Comment ctermfg=3
 set expandtab
 set shiftwidth=2
 set softtabstop=2
@@ -90,8 +93,14 @@ vnoremap < <gv
 vnoremap > >gv
 
 set cursorline
-highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
-highlight CursorLine gui=underline guifg=NONE guibg=NONE
 
 " theme
+set termguicolors
+let g:onedark_terminal_italics = 1
+let g:onedark_color_overrides = {
+\ "foreground": { "gui": "#FFFFFF", "cterm": "231", "cterm16": "NONE" },
+\ "white":      { "gui": "#FFFFFF", "cterm": "231", "cterm16": "15" },
+\}
+
 syntax on
+colorscheme onedark

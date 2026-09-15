@@ -22,10 +22,7 @@ Plug('petertriho/nvim-scrollbar')
 Plug('nvimdev/indentmini.nvim')
 Plug('ryanoasis/vim-devicons')
 Plug('nvim-tree/nvim-web-devicons')
-
--- filer
-Plug('MunifTanjim/nui.nvim')
-Plug('nvim-neo-tree/neo-tree.nvim', { ['branch'] = 'v3.x' })
+Plug('nvimdev/dashboard-nvim')
 
 -- git
 Plug('lewis6991/gitsigns.nvim')
@@ -39,6 +36,7 @@ Plug('roobert/search-replace.nvim')
 Plug('akinsho/toggleterm.nvim', { ['tag'] = '*' })
 Plug('nvim-lua/plenary.nvim')
 Plug('nvim-telescope/telescope.nvim')
+Plug('voldikss/vim-floaterm')
 
 -- filetype
 Plug('ixru/nvim-markdown')

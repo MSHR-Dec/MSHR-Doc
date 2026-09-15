@@ -66,31 +66,31 @@ if ok_code then
   end
 end
 
--- neo-tree.nvim
-require("neo-tree").setup({
-  close_if_last_window = true,
-  window = { position = "float" },
-  filesystem = {
-    filtered_items = {
-      hide_dotfiles = false,
-      hide_gitignored = false,
-      hide_by_name = { "node_modules", "sig" },
+-- dashboard-nvim
+require("dashboard").setup({
+  theme = "hyper",
+  config = {
+    week_header = { enable = true },
+    shortcut = {
+      { desc = "Files", group = "@property",      key = "f", action = "Telescope find_files" },
+      { desc = "Grep",  group = "Label",          key = "g", action = "Telescope live_grep" },
+      { desc = "yazi",  group = "DiagnosticHint", key = "b",
+        action = "FloatermNew --width=0.9 --height=0.9 --title=yazi yazi" },
     },
-    follow_current_file = { enabled = true },
-    use_libuv_file_watcher = true,
-  },
-  event_handlers = {
-    {
-      -- 行番号を出すオプションが setup に無いため、
-      -- ツリーのバッファに入った時点でウィンドウローカルに設定する
-      event = "neo_tree_buffer_enter",
-      handler = function() vim.wo.number = true end,
-    },
+    project = { enable = true, limit = 8, action = "Telescope find_files cwd=" },
+    mru = { limit = 10 },
   },
 })
-vim.keymap.set("n", "<c-b>", "<cmd>Neotree toggle<cr>", { remap = true })
-vim.api.nvim_set_hl(0, "NeoTreeDirectoryName", { fg = "#C7ADFF" })
-vim.api.nvim_set_hl(0, "NeoTreeDirectoryIcon", { fg = "#C7ADFF" })
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    local arg = vim.fn.argv(0)
+    if arg == "" or vim.fn.isdirectory(arg) ~= 1 then return end
+    local dirbuf = vim.api.nvim_get_current_buf()
+    vim.cmd.cd(arg)
+    vim.cmd("Dashboard")
+    pcall(vim.api.nvim_buf_delete, dirbuf, { force = true })
+  end,
+})
 
 -- lualine.nvim
 require("lualine").setup({
@@ -117,19 +117,7 @@ require("scrollbar").setup({
 })
 
 -- bufferline.nvim
-require("bufferline").setup({
-  options = {
-    offsets = {
-      {
-        filetype = "neo-tree",
-        -- 文字列で "%{...}" を渡すとツリーの幅に合わせて式ごと切り詰められ、
-        -- 閉じない %{ が tabline を壊すため関数で評価済みの文字列を返す
-        text = function() return vim.fn.fnamemodify(vim.fn.getcwd(), ":~") end,
-        text_align = "left",
-      },
-    },
-  },
-})
+require("bufferline").setup({})
 vim.keymap.set("n", "<Leader>w", function()
   local buf = vim.api.nvim_get_current_buf()
   -- bdelete はウィンドウごと閉じてしまうため、先に隣のバッファへ移ってから削除する

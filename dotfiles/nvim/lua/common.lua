@@ -7,8 +7,12 @@ vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
 vim.g.loaded_perl_provider = 0
 
+-- netrw は使わない（ディレクトリで開かれたらダッシュボードを出す）
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- options
-vim.opt.ambiwidth = "double"
+vim.opt.ambiwidth = "single"
 vim.opt.cinoptions:append(":0")
 vim.opt.clipboard = { "unnamedplus" }
 vim.opt.cmdheight = 1
@@ -35,6 +39,7 @@ vim.keymap.set("n", "<c-n>", "<cmd>bnext<cr>", { remap = true })
 vim.keymap.set("n", "<c-p>", "<cmd>bprev<cr>", { remap = true })
 vim.keymap.set("n", "<Leader>;", "<cmd>nohlsearch<cr>", { remap = true })
 vim.keymap.set("n", "<Leader>jq", "<cmd>%!jq '.'<cr>", { remap = true })
+vim.keymap.set("n", "<Leader>m", "<cmd>e memo.md<cr>", { desc = "open memo.md" })
 vim.keymap.set("n", "<Leader>vs", "<cmd>vsplit<cr><C-w>w<cr>", { remap = true })
 vim.keymap.set("n", "<Leader>nu", "<cmd>set number!<cr>")
 vim.keymap.set("n", "<Leader>wr", "<cmd>set wrap!<cr>")

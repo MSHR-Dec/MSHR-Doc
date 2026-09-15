@@ -20,6 +20,15 @@ vim.keymap.set("n", "<Leader>lzd", function()
   }):toggle()
 end)
 
+-- vim-floaterm for yazi
+vim.g.floaterm_opener = "edit"
+vim.api.nvim_set_hl(0, "Floaterm", { bg = "#2B2B2B" })
+vim.api.nvim_set_hl(0, "FloatermBorder", { bg = "#2B2B2B" })
+vim.keymap.set("n", "<C-b>",
+  "<cmd>FloatermNew --width=0.9 --height=0.9 --title=yazi yazi<cr>",
+  { desc = "yazi" })
+
+-- telescope.nvim
 vim.keymap.set("n", "<Leader>fg", function() require("telescope.builtin").live_grep() end)
 vim.keymap.set("n", "<Leader>ff", function() require("telescope.builtin").current_buffer_fuzzy_find() end)
 vim.keymap.set("n", "<Leader>fF", function() require("telescope.builtin").find_files() end)
