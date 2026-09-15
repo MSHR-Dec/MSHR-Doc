@@ -22,6 +22,10 @@ end)
 
 -- vim-floaterm for yazi
 vim.g.floaterm_opener = "edit"
+-- floaterm は GIT_EDITOR を乗っ取るが、バージョン判定が文字列比較のため
+-- ('0.12.5' <= '0.4.4' が真) 旧 nvim 向けの分岐に入り、ジョブ単位ではなく
+-- nvim プロセス全体に setenv してしまう。toggleterm 内の git まで巻き込まれる
+vim.g.floaterm_giteditor = false
 vim.api.nvim_set_hl(0, "Floaterm", { bg = "#2B2B2B" })
 vim.api.nvim_set_hl(0, "FloatermBorder", { bg = "#2B2B2B" })
 vim.keymap.set("n", "<C-b>",
