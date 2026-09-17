@@ -63,6 +63,8 @@ ln -fnsv "${DIR}"/yazi/theme.toml ~/.config/yazi/theme.toml
 mkdir -p ~/.config/brush
 ln -fnsv "${DIR}"/brush/config.toml ~/.config/brush/config.toml
 
+mkdir -p ~/.documents
+
 mkdir -p ~/.config/xremap
 mkdir -p ~/.config/systemd/user
 ln -fnsv "${DIR}"/xremap/config.yml ~/.config/xremap/config.yml

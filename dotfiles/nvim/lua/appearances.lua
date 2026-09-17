@@ -118,15 +118,7 @@ require("scrollbar").setup({
 
 -- bufferline.nvim
 require("bufferline").setup({})
-vim.keymap.set("n", "<Leader>w", function()
-  local buf = vim.api.nvim_get_current_buf()
-  -- bdelete はウィンドウごと閉じてしまうため、先に隣のバッファへ移ってから削除する
-  vim.cmd("BufferLineCycleNext")
-  if vim.api.nvim_get_current_buf() == buf then
-    vim.cmd("enew") -- 最後の1枚なら空バッファへ退避
-  end
-  vim.api.nvim_buf_delete(buf, { force = false })
-end, { desc = "Close current buffer (keep window)" })
+vim.keymap.set("n", "<Leader>w", "<cmd>bd<cr>", { desc = "Close current buffer" })
 
 require("gitsigns").setup({
   current_line_blame = true,
@@ -138,19 +130,3 @@ vim.keymap.set("n", "ghp", function() require("gitsigns").preview_hunk() end)
 vim.cmd.highlight("IndentLine guifg=#767676")
 vim.cmd.highlight("IndentLineCurrent guifg=#af00ff")
 require("indentmini").setup()
-
--- telescope.nvim (ポップアップを紫系に)
-local telescope_bg = "#30303a"
-for _, group in ipairs({
-  "TelescopeBorder", "TelescopePromptBorder", "TelescopeResultsBorder", "TelescopePreviewBorder",
-  "TelescopeTitle", "TelescopePromptTitle", "TelescopeResultsTitle", "TelescopePreviewTitle",
-}) do
-  vim.api.nvim_set_hl(0, group, { fg = colors.purple, bg = telescope_bg })
-end
-for _, group in ipairs({
-  "TelescopeNormal", "TelescopePromptNormal", "TelescopeResultsNormal", "TelescopePreviewNormal",
-}) do
-  vim.api.nvim_set_hl(0, group, { bg = telescope_bg })
-end
-vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = colors.selection })
-vim.api.nvim_set_hl(0, "TelescopeMatching", { fg = colors.purple, bold = true })

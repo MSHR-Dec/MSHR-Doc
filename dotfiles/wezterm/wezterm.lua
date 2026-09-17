@@ -159,11 +159,6 @@ config.keys = {
 		mods = "LEADER|CTRL",
 		action = toggle_overlay_pane("tig", "💣 "),
 	},
-	{
-		key = "b",
-		mods = "LEADER|CTRL",
-		action = toggle_overlay_pane("nvim ~/.nb/memo", "🔖 "),
-	},
 	-- Claude Code のセッション一覧を開き、選んだペインへジャンプする
 	{
 		key = "a",

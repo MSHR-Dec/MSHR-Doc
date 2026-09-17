@@ -13,6 +13,7 @@ brew "grep", trusted: true
 brew "imagemagick-full", trusted: true
 brew "jq", trusted: true
 brew "lazydocker", trusted: true
+brew "lazygit", trusted: true
 brew "markdown-oxide", trusted: true
 brew "mycli", trusted: true
 brew "tree-sitter", trusted: true
